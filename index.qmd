@@ -1,0 +1,308 @@
+---
+title: "Unequal Nights"
+subtitle: "Mapping Lighting Equity, Safety, and Urban Mobility in Philadelphia"
+author: "Zicheng Xiang, Zhe Fang, Yanyang Chen"
+date: today
+format: html
+execute:
+  enabled: false
+---
+
+![Philadelphia Nighttime Skyline](https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&h=400&fit=crop)
+
+## From Darkness to Decision {.unnumbered}
+
+> *"Data should not only reveal darkness, but it should also help cities decide where to shine next."*
+
+Philadelphia's nights are unevenly illuminated. Downtown shines brightly, while parts of North Philadelphia and Kensington remain in darkness for weeks after lights fail. This pattern reflects **spatiotemporal inequality** in infrastructure maintenance—where some neighborhoods get rapid repairs and others wait in the dark.
+
+---
+
+# Urban Problem and Motivation
+
+The consequences of unequal lighting are threefold:
+
+::: {.callout-important icon=false}
+## Three Critical Impacts
+
+1. **Objective Risk**: Concentration of street crimes and traffic accidents
+2. **Subjective Fear**: Diminished sense of safety and comfort  
+3. **Social Inequity**: Low-income and minority areas face higher exposure to lighting poverty
+:::
+
+### Research Question
+
+::: {.callout-note icon=false}
+## Core Question
+**In what ways does urban lighting influence perceived and actual safety among people navigating Philadelphia at night?**
+:::
+
+---
+
+# Research Goals
+
+Our project pursues four interconnected objectives:
+
+```{python}
+#| echo: false
+#| fig-cap: "Research Framework"
+import plotly.graph_objects as go
+
+fig = go.Figure(data=[go.Sankey(
+    node = dict(
+      pad = 15,
+      thickness = 20,
+      line = dict(color = "black", width = 0.5),
+      label = ["Lighting Equity", "Light-Safety Links", "Mobility Exposure", 
+               "Predictive Models", "Faster Repairs", "Fairer Distribution", 
+               "Safer Mobility", "Community Trust"],
+      color = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", 
+               "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]
+    ),
+    link = dict(
+      source = [0, 1, 2, 3, 0, 1, 2, 3],
+      target = [4, 5, 6, 7, 5, 6, 7, 4],
+      value = [1, 1, 1, 1, 1, 1, 1, 1]
+  ))])
+
+fig.update_layout(title_text="From Analysis to Impact", font_size=10, height=400)
+fig.show()
+```
+
+## Goal 1: Quantify Lighting Equity
+Measure streetlight outage density, repair delay, and socioeconomic correlates through our **Lighting Equity Index (LEI)**.
+
+## Goal 2: Reveal Light-Safety Mechanisms  
+Test links between lighting quality, crime rates, and perceived insecurity using spatial regression models.
+
+## Goal 3: Integrate Mobility Exposure
+Evaluate how night transit (SEPTA) and Indego bike networks intersect with lighting coverage via our **Night Transit Exposure Index (NTE)**.
+
+## Goal 4: Predict and Prioritize
+Use machine learning (Random Forest) to forecast future 'dark spots' and propose repair corridors.
+
+---
+
+# Data Sources
+
+Our analysis integrates seven data domains:
+
+```{python}
+#| echo: false
+#| label: tbl-data
+#| tbl-cap: "Comprehensive Data Integration"
+
+import pandas as pd
+
+data_dict = {
+    'Domain': [
+        'Streetlight Maintenance',
+        'Public Safety', 
+        'Mobility',
+        'Socio-Economic',
+        'Urban Form',
+        'Remote Sensing',
+        'Reference Cities'
+    ],
+    'Dataset': [
+        '311 Streetlight Out Reports',
+        'Philadelphia Crime Incidents',
+        'SEPTA GTFS, Indego Trips',
+        'ACS 5-Year Estimates',
+        'OSM Road Network, Land Use',
+        'VIIRS Nighttime Lights',
+        'Chicago, LA, Milan, Copenhagen'
+    ],
+    'Variables / Purpose': [
+        'Outage counts, repair duration',
+        'Nighttime crime density',
+        'Night service frequency, station density',
+        'Income, poverty, race, car ownership',
+        'Functional context, street geometry',
+        'Surface brightness proxy',
+        'Benchmark indicators and policy analogs'
+    ]
+}
+
+df = pd.DataFrame(data_dict)
+print(df.to_markdown(index=False))
+```
+
+::: {.callout-tip}
+## Data Accessibility
+All datasets are publicly available through Philadelphia's OpenDataPhilly portal, US Census Bureau, and OpenStreetMap.
+:::
+
+---
+
+# Methodology Overview
+
+Our workflow follows the complete data-science pipeline:
+
+::: {.panel-tabset}
+
+## Phase 1: Diagnostics
+- Aggregate outages by street segment per quarter
+- Compute **Outage Density (OD)** and **Repair Delay (RD)**
+- Generate Darkness Evolution Maps
+
+## Phase 2: Equity Analysis
+- Standardize OD, RD, poverty, and vehicle ownership
+- Derive integrated **Lighting Equity Index (LEI)** via PCA
+- Identify lighting poverty hotspots
+
+## Phase 3: Spatial Statistics
+- Moran's I and LISA for clustering detection
+- Spatial Lag and Error Models
+- Quantify crime ~ lighting relationship
+
+## Phase 4: Perception Gap
+- Map objective crime vs subjective fear
+- Analyze 311 complaint patterns
+- Identify perception-reality mismatches
+
+## Phase 5: Mobility Integration
+- Compute nighttime SEPTA headways
+- Build 10-min walk buffers via OSMnx
+- Calculate **Night Transit Exposure Index (NTE)**
+
+## Phase 6: Prediction
+- Random Forest on OD/RD, road density, zoning, season
+- Generate dark-zone risk probability maps
+- Rank priority corridors
+
+## Phase 7: Visualization
+- Interactive Panel Dashboard
+- Temporal slider and narrative storytelling
+- Theme: "From Darkness to Decision"
+
+:::
+
+---
+
+# The LEIF Framework
+
+Our **Lighting Equity Integrated Framework (LEIF)** connects five key stages:
+
+```{mermaid}
+%%| fig-width: 8
+graph TB
+    A[DIAGNOSIS<br/>Spatial & Temporal Inequality] --> B[EXPLANATION<br/>Lighting-Crime-Perception Links]
+    B --> C[SIMULATION<br/>Lighting-Transit Interaction]
+    C --> D[PREDICTION<br/>Future Dark Zone Forecasts]
+    D --> E[ACTION & FEEDBACK<br/>Dashboard & Community Portal]
+    E --> A
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#e8f5e9
+    style D fill:#fce4ec
+    style E fill:#f3e5f5
+```
+
+This closed-loop system enables:
+
+- **Transparent diagnosis** of current inequities
+- **Evidence-based explanation** of safety impacts  
+- **What-if simulation** of intervention scenarios
+- **Data-driven prediction** for proactive maintenance
+- **Participatory feedback** through public dashboards
+
+---
+
+# Expected Deliverables
+
+::: {layout-ncol=2}
+
+### Data Products
+- Lighting Equity Index (LEI)
+- Night Transit Exposure Index (NTE)  
+- Fear-Crime Gap Index
+- Dark-Spot Probability Maps
+
+### Analytical Models
+- Spatial Lag/Error Regressions
+- Random Forest Classifiers
+- Time-Series Outage Forecasts
+- Priority Corridor Rankings
+
+:::
+
+::: {layout-ncol=2}
+
+### Visualizations
+- Interactive Panel Dashboard
+- Multi-page Quarto Website
+- Story Maps & Animations
+- Comparative City Benchmarks
+
+### Policy Outputs  
+- Lighting Equity Priority Plan
+- Maintenance Resource Allocation
+- Community Engagement Toolkit
+- Best Practice Recommendations
+
+:::
+
+---
+
+# Expected Impact
+
+Our project aims to deliver measurable improvements across four dimensions:
+
+::: {.callout-success icon=false}
+## Transformation Goals
+
+**Operational Efficiency**  
+Faster repairs and smarter allocation of maintenance resources
+
+**Distributional Justice**  
+Fairer distribution of lighting infrastructure across neighborhoods
+
+**Public Safety**  
+Safer nighttime mobility along key transit corridors
+
+**Civic Engagement**  
+Strengthened community trust through transparent dashboards
+:::
+
+---
+
+# Why This Matters
+
+Every streetlight outage represents more than a technical failure—it reflects a gap in the urban social contract. When repairs take weeks in some neighborhoods and days in others, we're not just seeing infrastructure inequality; we're witnessing the compounding of disadvantage.
+
+::: {.callout-warning icon=false}
+## The Equity Imperative
+Low-income communities already face higher crime rates, limited transit options, and fewer private vehicles. Prolonged darkness adds another layer of vulnerability, constraining mobility, economic opportunity, and quality of life.
+:::
+
+By transforming 311 maintenance data into actionable insight, we demonstrate how **spatial data science can illuminate pathways to justice**—one streetlight at a time.
+
+---
+
+## Navigate This Site
+
+Use the navigation bar above to explore:
+
+- **Methodology**: Detailed technical approach and analytical pipeline
+- **Data & Analysis**: Interactive maps, statistics, and findings  
+- **Dashboard**: Real-time monitoring and exploration tools
+- **Policy Brief**: Recommendations and implementation roadmap
+- **About Team**: Meet the researchers and collaborators
+
+---
+
+::: {.callout-note icon=false}
+## Project Timeline
+
+**Phase 1 (Weeks 1-3)**: Data collection and preprocessing  
+**Phase 2 (Weeks 4-6)**: Spatial analysis and modeling  
+**Phase 3 (Weeks 7-9)**: Visualization and dashboard development  
+**Phase 4 (Weeks 10-12)**: Policy brief and presentation preparation
+
+:::
+
+---
+
+*This project is conducted as part of the Master of Urban Spatial Analytics program at the University of Pennsylvania.*

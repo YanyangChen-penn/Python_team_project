@@ -1,0 +1,69 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Unequal Nights"
+  navbar:
+    background: primary
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Methodology"
+        href: methodology.qmd
+      - text: "Data & Analysis"
+        href: analysis.qmd
+      - text: "Dashboard"
+        href: dashboard.qmd
+      - text: "Policy Brief"
+        href: policy.qmd
+      - text: "About Team"
+        href: team.qmd
+    right:
+      - icon: github
+        href: https://github.com/yourusername/unequal-nights
+        
+  sidebar:
+    style: "docked"
+    background: light
+    contents:
+      - section: "Project Overview"
+        contents:
+          - index.qmd
+          - methodology.qmd
+      - section: "Analysis"
+        contents:
+          - analysis.qmd
+          - dashboard.qmd
+      - section: "Outcomes"
+        contents:
+          - policy.qmd
+          - team.qmd
+
+  page-footer:
+    left: "© 2024 Unequal Nights Project Team"
+    right: 
+      - text: "University of Pennsylvania"
+      - text: "MUSA Program"
+
+format:
+  html:
+    theme: 
+      light: [cosmo, custom.scss]
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    smooth-scroll: true
+    anchor-sections: true
+    fig-width: 8
+    fig-height: 6
+    fig-dpi: 300
+
+execute:
+  freeze: auto
+  cache: true
+  warning: false
+  message: false

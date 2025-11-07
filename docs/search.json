@@ -1,0 +1,98 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Unequal Nights",
+    "section": "",
+    "text": "Philadelphia Nighttime Skyline",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#from-darkness-to-decision",
+    "href": "index.html#from-darkness-to-decision",
+    "title": "Unequal Nights",
+    "section": "From Darkness to Decision",
+    "text": "From Darkness to Decision\n\n“Data should not only reveal darkness, but it should also help cities decide where to shine next.”\n\nPhiladelphia’s nights are unevenly illuminated. Downtown shines brightly, while parts of North Philadelphia and Kensington remain in darkness for weeks after lights fail. This pattern reflects spatiotemporal inequality in infrastructure maintenance—where some neighborhoods get rapid repairs and others wait in the dark.",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#goal-1-quantify-lighting-equity",
+    "href": "index.html#goal-1-quantify-lighting-equity",
+    "title": "Unequal Nights",
+    "section": "Goal 1: Quantify Lighting Equity",
+    "text": "Goal 1: Quantify Lighting Equity\nMeasure streetlight outage density, repair delay, and socioeconomic correlates through our Lighting Equity Index (LEI).",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#goal-2-reveal-light-safety-mechanisms",
+    "href": "index.html#goal-2-reveal-light-safety-mechanisms",
+    "title": "Unequal Nights",
+    "section": "Goal 2: Reveal Light-Safety Mechanisms",
+    "text": "Goal 2: Reveal Light-Safety Mechanisms\nTest links between lighting quality, crime rates, and perceived insecurity using spatial regression models.",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#goal-3-integrate-mobility-exposure",
+    "href": "index.html#goal-3-integrate-mobility-exposure",
+    "title": "Unequal Nights",
+    "section": "Goal 3: Integrate Mobility Exposure",
+    "text": "Goal 3: Integrate Mobility Exposure\nEvaluate how night transit (SEPTA) and Indego bike networks intersect with lighting coverage via our Night Transit Exposure Index (NTE).",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#goal-4-predict-and-prioritize",
+    "href": "index.html#goal-4-predict-and-prioritize",
+    "title": "Unequal Nights",
+    "section": "Goal 4: Predict and Prioritize",
+    "text": "Goal 4: Predict and Prioritize\nUse machine learning (Random Forest) to forecast future ‘dark spots’ and propose repair corridors.",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#transformation-goals",
+    "href": "index.html#transformation-goals",
+    "title": "Unequal Nights",
+    "section": "Transformation Goals",
+    "text": "Transformation Goals\nOperational Efficiency\nFaster repairs and smarter allocation of maintenance resources\nDistributional Justice\nFairer distribution of lighting infrastructure across neighborhoods\nPublic Safety\nSafer nighttime mobility along key transit corridors\nCivic Engagement\nStrengthened community trust through transparent dashboards",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  },
+  {
+    "objectID": "index.html#navigate-this-site",
+    "href": "index.html#navigate-this-site",
+    "title": "Unequal Nights",
+    "section": "Navigate This Site",
+    "text": "Navigate This Site\nUse the navigation bar above to explore:\n\nMethodology: Detailed technical approach and analytical pipeline\nData & Analysis: Interactive maps, statistics, and findings\n\nDashboard: Real-time monitoring and exploration tools\nPolicy Brief: Recommendations and implementation roadmap\nAbout Team: Meet the researchers and collaborators\n\n\n\n\n\n\n\n\nProject Timeline\n\n\n\nPhase 1 (Weeks 1-3): Data collection and preprocessing\nPhase 2 (Weeks 4-6): Spatial analysis and modeling\nPhase 3 (Weeks 7-9): Visualization and dashboard development\nPhase 4 (Weeks 10-12): Policy brief and presentation preparation\n\n\n\nThis project is conducted as part of the Master of Urban Spatial Analytics program at the University of Pennsylvania.",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Unequal Nights"
+    ]
+  }
+]
