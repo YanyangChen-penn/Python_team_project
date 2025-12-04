@@ -1,0 +1,241 @@
+---
+format:
+  html:
+    toc: false
+execute:
+  enabled: false
+---
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+---
+
+## The Central Question
+
+<div class="content-box content-box-blue">
+<h2 style="color: var(--gold); font-style: italic; font-size: 2rem; text-align: center;">
+"Why do some areas remain dark, yet residents never complain?"
+</h2>
+</div>
+
+---
+
+## The Complaint Gap Concept
+
+<div class="content-box">
+
+### The Problem with Traditional Maintenance
+
+Traditional maintenance relies on **311 complaints**. But some communities face barriers to reporting:
+
+- ðŸŒ **Language barriers**
+- â° **Time constraints**
+- ðŸ¤ **Distrust of government**
+- â“ **Lack of awareness** of how to report
+
+**Result**: Satellite data reveals what complaints miss.
+
+</div>
+
+---
+
+## Understanding the Gap Formula
+
+<div style="text-align: center; padding: 3rem 0;">
+
+### Complaint Gap = LOW LIGHT + LOW 311 + LOW INCOME
+
+<div class="feature-grid" style="margin-top: 2rem;">
+
+<div class="feature-item" style="border-top-color: var(--blue); background-color: #2c3e50;">
+<h3>LOW LIGHT</h3>
+<p style="color: var(--text-muted);">Objectively Dark</p>
+<div style="font-size: 3rem; margin: 1rem 0;">ðŸŒ‘</div>
+<p>Measured by VIIRS satellite radiance</p>
+</div>
+
+<div style="font-size: 3rem; color: var(--gold); padding-top: 8rem;">+</div>
+
+<div class="feature-item" style="border-top-color: var(--blue); background-color: #2c3e50;">
+<h3>LOW 311</h3>
+<p style="color: var(--text-muted);">Few Complaints</p>
+<div style="font-size: 3rem; margin: 1rem 0;">ðŸ“‰</div>
+<p>Below-average complaint rates</p>
+</div>
+
+<div style="font-size: 3rem; color: var(--gold); padding-top: 8rem;">+</div>
+
+<div class="feature-item" style="border-top-color: var(--blue); background-color: #2c3e50;">
+<h3>LOW INCOME</h3>
+<p style="color: var(--text-muted);">Vulnerable Areas</p>
+<div style="font-size: 3rem; margin: 1rem 0;">ðŸ’¸</div>
+<p>Below-median household income</p>
+</div>
+
+<div style="font-size: 3rem; color: var(--gold); padding-top: 8rem;">=</div>
+
+<div class="feature-item" style="border-top-color: var(--red); background-color: #FF6B6B;">
+<h3 style="color: white;">COMPLAINT GAP</h3>
+<p style="color: white; font-weight: bold;">Underserved Areas</p>
+<div style="font-size: 3rem; margin: 1rem 0;">âš ï¸</div>
+<p style="color: white;">Need proactive intervention</p>
+</div>
+
+</div>
+
+</div>
+
+---
+
+## The Paradox
+
+<div class="content-box content-box-red">
+
+### The Darkest Areas File 76% Fewer Complaints
+
+Our data reveals a troubling paradox:
+
+- The areas with the **lowest VIIRS brightness** (objectively darkest)
+- Have the **fewest 311 complaints** (76% below city average)
+- Are also the **lowest-income neighborhoods**
+
+**This means the 311 system systematically misses the communities that need help most.**
+
+</div>
+
+---
+
+## Why Satellite Data Matters
+
+<div class="feature-grid">
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>âœ… Objective Measurement</h4>
+<p>VIIRS provides unbiased brightness data independent of reporting behavior</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>ðŸŒ Complete Coverage</h4>
+<p>Satellite imagery captures every neighborhood, not just where residents complain</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>ðŸ•’ Temporal Tracking</h4>
+<p>Monthly composites reveal patterns and trends over time</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>âš–ï¸ Equity Focus</h4>
+<p>Identifies underserved areas that might never file complaints</p>
+</div>
+
+</div>
+
+---
+
+## Our Approach
+
+<div class="content-box content-box-blue">
+
+### Proactive, Not Reactive
+
+**This study uses VIIRS satellite data to objectively identify dark areas**, bypassing the complaint system to find underserved communities directly.
+
+Instead of waiting for residents to report problems, we use satellite imagery to:
+
+1. **Measure actual darkness** across all neighborhoods
+2. **Compare** with 311 complaint patterns  
+3. **Identify gaps** where darkness exists but complaints don't
+4. **Correlate** with socioeconomic vulnerability
+5. **Predict** which areas will darken next
+
+</div>
+
+---
+
+## The Intervention Imperative
+
+<div class="callout callout-warning">
+<div class="callout-title">These communities need PROACTIVE intervention, not reactive 311 responses</div>
+
+By the time low-income communities file 311 complaints:
+- Infrastructure has often deteriorated significantly
+- Public safety concerns have escalated
+- Trust in government services has eroded
+
+**Our satellite-based approach enables intervention BEFORE communities reach the crisis point.**
+</div>
+
+---
+
+## Research Goals
+
+<div class="feature-grid">
+
+<div class="stat-card stat-card-red">
+<div class="feature-icon">ðŸŽ¯</div>
+<h3>Identify</h3>
+<p>Locate the 62 Complaint Gap areas where darkness, low complaints, and low income overlap</p>
+</div>
+
+<div class="stat-card stat-card-blue">
+<div class="feature-icon">ðŸ”®</div>
+<h3>Predict</h3>
+<p>Forecast 582 areas likely to darken using Random Forest machine learning</p>
+</div>
+
+<div class="stat-card stat-card-green">
+<div class="feature-icon">ðŸ›¡ï¸</div>
+<h3>Protect</h3>
+<p>Design safer nighttime routes through better-lit streets</p>
+</div>
+
+<div class="stat-card stat-card-orange">
+<div class="feature-icon">ðŸ“‹</div>
+<h3>Recommend</h3>
+<p>Propose data-driven policy interventions for equitable maintenance</p>
+</div>
+
+</div>
+
+---
+
+## Expected Impact
+
+<div class="content-box content-box-green">
+
+### From Data to Decision
+
+This research demonstrates how **spatial data science can illuminate pathways to justice**â€”one streetlight at a time.
+
+By transforming satellite data into actionable insights, we provide:
+
+- **Evidence** of systematic lighting inequality
+- **Tools** for proactive maintenance planning
+- **Methods** for monitoring equity over time
+- **Recommendations** for fair infrastructure allocation
+
+</div>
+
+---
+
+## Next Steps
+
+Continue to [Data & Methodology](data.qmd) to see how we collected and analyzed the data.

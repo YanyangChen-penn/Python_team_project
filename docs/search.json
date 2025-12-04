@@ -94,5 +94,245 @@
       "Project Overview",
       "Unequal Nights"
     ]
+  },
+  {
+    "objectID": "methodology.html",
+    "href": "methodology.html",
+    "title": "Methodology & Workflow",
+    "section": "",
+    "text": "This page provides a complete, reproducible workflow from raw data to final insights. Follow each phase sequentially to replicate our analysis.",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#install-required-python-packages",
+    "href": "methodology.html#install-required-python-packages",
+    "title": "Methodology & Workflow",
+    "section": "Install Required Python Packages",
+    "text": "Install Required Python Packages\n\n\nCode\n# Core data processing\npip install pandas geopandas numpy\n\n# Spatial analysis\npip install pysal esda libpysal splot\n\n# Visualization\npip install matplotlib seaborn plotly folium\n\n# Machine learning\npip install scikit-learn\n\n# Transit data\npip install partridge gtfs-kit\n\n# OpenStreetMap\npip install osmnx\n\n# Census data\npip install census\n\n# NASA data\npip install earthaccess\n\n# Jupyter for notebooks\npip install jupyter ipython",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#create-project-structure",
+    "href": "methodology.html#create-project-structure",
+    "title": "Methodology & Workflow",
+    "section": "Create Project Structure",
+    "text": "Create Project Structure\n\n\nCode\nimport os\n\n# Create directory structure\nfolders = [\n    'data/raw',\n    'data/processed',\n    'data/spatial',\n    'notebooks',\n    'scripts',\n    'outputs/maps',\n    'outputs/figures',\n    'outputs/models'\n]\n\nfor folder in folders:\n    os.makedirs(folder, exist_ok=True)\n    print(f\"✓ Created {folder}\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#step-2.1-download-311-streetlight-data",
+    "href": "methodology.html#step-2.1-download-311-streetlight-data",
+    "title": "Methodology & Workflow",
+    "section": "Step 2.1: Download 311 Streetlight Data",
+    "text": "Step 2.1: Download 311 Streetlight Data\n\n\nCode\nimport pandas as pd\nimport geopandas as gpd\nfrom datetime import datetime\n\n# Download from OpenDataPhilly\nurl_311 = \"https://phl.carto.com/api/v2/sql?q=SELECT * FROM public_cases_fc WHERE service_name = 'Streetlight Outage'&format=csv\"\n\n# Read data\ndf_311 = pd.read_csv(url_311)\n\n# Convert to datetime\ndf_311['requested_datetime'] = pd.to_datetime(df_311['requested_datetime'])\ndf_311['closed_date'] = pd.to_datetime(df_311['closed_date'])\n\n# Calculate repair delay (in days)\ndf_311['repair_delay'] = (df_311['closed_date'] - df_311['requested_datetime']).dt.days\n\n# Convert to GeoDataFrame\ngdf_311 = gpd.GeoDataFrame(\n    df_311,\n    geometry=gpd.points_from_xy(df_311.lon, df_311.lat),\n    crs='EPSG:4326'\n)\n\n# Save\ngdf_311.to_file('data/processed/streetlight_outages.geojson', driver='GeoJSON')\nprint(f\"✓ Downloaded {len(gdf_311)} streetlight outage records\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#step-2.2-download-crime-data",
+    "href": "methodology.html#step-2.2-download-crime-data",
+    "title": "Methodology & Workflow",
+    "section": "Step 2.2: Download Crime Data",
+    "text": "Step 2.2: Download Crime Data\n\n\nCode\n# Download Philadelphia crime incidents\nurl_crime = \"https://phl.carto.com/api/v2/sql?q=SELECT * FROM incidents_part1_part2&format=csv\"\n\ndf_crime = pd.read_csv(url_crime)\n\n# Convert to datetime\ndf_crime['dispatch_date_time'] = pd.to_datetime(df_crime['dispatch_date_time'])\n\n# Filter nighttime crimes (7pm - 6am)\ndf_crime['hour'] = df_crime['dispatch_date_time'].dt.hour\ndf_crime_night = df_crime[(df_crime['hour'] &gt;= 19) | (df_crime['hour'] &lt;= 6)]\n\n# Convert to GeoDataFrame\ngdf_crime = gpd.GeoDataFrame(\n    df_crime_night,\n    geometry=gpd.points_from_xy(df_crime_night.point_x, df_crime_night.point_y),\n    crs='EPSG:2272'  # Pennsylvania State Plane\n).to_crs('EPSG:4326')\n\ngdf_crime.to_file('data/processed/crime_nighttime.geojson', driver='GeoJSON')\nprint(f\"✓ Downloaded {len(gdf_crime)} nighttime crime incidents\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#step-2.3-download-septa-gtfs-data",
+    "href": "methodology.html#step-2.3-download-septa-gtfs-data",
+    "title": "Methodology & Workflow",
+    "section": "Step 2.3: Download SEPTA GTFS Data",
+    "text": "Step 2.3: Download SEPTA GTFS Data\n\n\nCode\nimport partridge as ptg\nimport requests\nimport zipfile\n\n# Download GTFS\ngtfs_url = \"https://www3.septa.org/developer/gtfs.zip\"\nresponse = requests.get(gtfs_url)\n\nwith open('data/raw/septa_gtfs.zip', 'wb') as f:\n    f.write(response.content)\n\n# Load GTFS\nfeed = ptg.load_geo_feed('data/raw/septa_gtfs.zip')\n\n# Extract stops as GeoDataFrame\nstops = feed.stops\ngdf_stops = gpd.GeoDataFrame(\n    stops,\n    geometry=gpd.points_from_xy(stops.stop_lon, stops.stop_lat),\n    crs='EPSG:4326'\n)\n\ngdf_stops.to_file('data/processed/septa_stops.geojson', driver='GeoJSON')\nprint(f\"✓ Extracted {len(gdf_stops)} SEPTA stops\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#step-2.4-download-indego-bike-data",
+    "href": "methodology.html#step-2.4-download-indego-bike-data",
+    "title": "Methodology & Workflow",
+    "section": "Step 2.4: Download Indego Bike Data",
+    "text": "Step 2.4: Download Indego Bike Data\n\n\nCode\n# Example: Download Q4 2024 data\nindego_url = \"https://www.rideindego.com/wp-content/uploads/2024/10/indego-trips-2024-q4.csv\"\n\ndf_indego = pd.read_csv(indego_url)\ndf_indego['start_time'] = pd.to_datetime(df_indego['start_time'])\n\n# Filter nighttime trips\ndf_indego['hour'] = df_indego['start_time'].dt.hour\ndf_indego_night = df_indego[(df_indego['hour'] &gt;= 19) | (df_indego['hour'] &lt;= 6)]\n\ndf_indego_night.to_csv('data/processed/indego_night_trips.csv', index=False)\nprint(f\"✓ Downloaded {len(df_indego_night)} nighttime bike trips\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#step-2.5-download-census-acs-data",
+    "href": "methodology.html#step-2.5-download-census-acs-data",
+    "title": "Methodology & Workflow",
+    "section": "Step 2.5: Download Census ACS Data",
+    "text": "Step 2.5: Download Census ACS Data\n\n\nCode\nfrom census import Census\nimport os\n\n# Set your Census API key (get free key at https://api.census.gov/data/key_signup.html)\n# os.environ['CENSUS_API_KEY'] = 'your_key_here'\n\nc = Census(os.environ['CENSUS_API_KEY'])\n\n# Philadelphia County FIPS: 42101\nvariables = {\n    'B19013_001E': 'median_income',\n    'B17001_002E': 'poverty_count',\n    'B08201_002E': 'no_vehicle_households',\n    'B02001_002E': 'white_population',\n    'B02001_003E': 'black_population'\n}\n\ndata = c.acs5.state_county_tract(\n    fields=list(variables.keys()),\n    state_fips='42',\n    county_fips='101',\n    year=2022\n)\n\ndf_acs = pd.DataFrame(data)\ndf_acs.rename(columns=variables, inplace=True)\n\ndf_acs.to_csv('data/processed/acs_census_data.csv', index=False)\nprint(f\"✓ Downloaded ACS data for {len(df_acs)} census tracts\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#step-2.6-download-osm-road-network",
+    "href": "methodology.html#step-2.6-download-osm-road-network",
+    "title": "Methodology & Workflow",
+    "section": "Step 2.6: Download OSM Road Network",
+    "text": "Step 2.6: Download OSM Road Network\n\n\nCode\nimport osmnx as ox\n\n# Download Philadelphia road network\nplace = \"Philadelphia, Pennsylvania, USA\"\nG = ox.graph_from_place(place, network_type='drive')\n\n# Convert to GeoDataFrame\ngdf_nodes, gdf_edges = ox.graph_to_gdfs(G)\n\n# Save\ngdf_edges.to_file('data/processed/philly_roads.geojson', driver='GeoJSON')\nprint(f\"✓ Downloaded {len(gdf_edges)} road segments\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#create-analysis-grid-hexagons",
+    "href": "methodology.html#create-analysis-grid-hexagons",
+    "title": "Methodology & Workflow",
+    "section": "Create Analysis Grid (Hexagons)",
+    "text": "Create Analysis Grid (Hexagons)\n\n\nCode\nimport geopandas as gpd\nfrom shapely.geometry import box\nimport h3\n\n# Load Philadelphia boundary\nphilly = gpd.read_file('data/raw/philly_boundary.geojson')\n\n# Create H3 hexagon grid (resolution 8 ≈ 0.46 km² per cell)\nbounds = philly.total_bounds\nminx, miny, maxx, maxy = bounds\n\n# Generate points across the area\nimport numpy as np\nlats = np.linspace(miny, maxy, 100)\nlons = np.linspace(minx, maxx, 100)\n\nhexagons = set()\nfor lat in lats:\n    for lon in lons:\n        h = h3.geo_to_h3(lat, lon, 8)\n        hexagons.add(h)\n\n# Convert to GeoDataFrame\nfrom shapely.geometry import Polygon\n\ndef h3_to_polygon(h):\n    coords = h3.h3_to_geo_boundary(h, geo_json=True)\n    return Polygon(coords)\n\ngdf_hex = gpd.GeoDataFrame(\n    {'hex_id': list(hexagons)},\n    geometry=[h3_to_polygon(h) for h in hexagons],\n    crs='EPSG:4326'\n)\n\n# Clip to Philadelphia boundary\ngdf_hex = gpd.overlay(gdf_hex, philly, how='intersection')\n\ngdf_hex.to_file('data/spatial/analysis_hexagons.geojson', driver='GeoJSON')\nprint(f\"✓ Created {len(gdf_hex)} hexagonal analysis units\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#calculate-outage-density-od-per-hexagon",
+    "href": "methodology.html#calculate-outage-density-od-per-hexagon",
+    "title": "Methodology & Workflow",
+    "section": "Calculate Outage Density (OD) per Hexagon",
+    "text": "Calculate Outage Density (OD) per Hexagon\n\n\nCode\n# Load data\ngdf_311 = gpd.read_file('data/processed/streetlight_outages.geojson')\ngdf_hex = gpd.read_file('data/spatial/analysis_hexagons.geojson')\n\n# Spatial join: count outages per hexagon\ngdf_hex = gdf_hex.to_crs(gdf_311.crs)\njoined = gpd.sjoin(gdf_311, gdf_hex, how='inner', predicate='within')\n\n# Aggregate\noutage_counts = joined.groupby('hex_id').size().reset_index(name='outage_count')\ngdf_hex = gdf_hex.merge(outage_counts, on='hex_id', how='left')\ngdf_hex['outage_count'] = gdf_hex['outage_count'].fillna(0)\n\n# Calculate density (outages per km²)\ngdf_hex['area_km2'] = gdf_hex.to_crs('EPSG:3857').area / 1e6\ngdf_hex['outage_density'] = gdf_hex['outage_count'] / gdf_hex['area_km2']\n\nprint(\"✓ Outage Density calculated\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#calculate-mean-repair-delay-rd",
+    "href": "methodology.html#calculate-mean-repair-delay-rd",
+    "title": "Methodology & Workflow",
+    "section": "Calculate Mean Repair Delay (RD)",
+    "text": "Calculate Mean Repair Delay (RD)\n\n\nCode\n# Calculate mean repair delay per hexagon\nrepair_delays = joined.groupby('hex_id')['repair_delay'].mean().reset_index(name='mean_repair_delay')\ngdf_hex = gdf_hex.merge(repair_delays, on='hex_id', how='left')\ngdf_hex['mean_repair_delay'] = gdf_hex['mean_repair_delay'].fillna(0)\n\nprint(\"✓ Repair Delay calculated\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#integrate-socioeconomic-data",
+    "href": "methodology.html#integrate-socioeconomic-data",
+    "title": "Methodology & Workflow",
+    "section": "Integrate Socioeconomic Data",
+    "text": "Integrate Socioeconomic Data\n\n\nCode\n# Load census data\ndf_acs = pd.read_csv('data/processed/acs_census_data.csv')\n\n# Load census tract boundaries\ngdf_tracts = gpd.read_file('https://www2.census.gov/geo/tiger/TIGER2022/TRACT/tl_2022_42_tract.zip')\ngdf_tracts = gdf_tracts[gdf_tracts['COUNTYFP'] == '101']  # Philadelphia\n\n# Merge ACS data with tract geometries\ngdf_tracts['GEOID'] = gdf_tracts['GEOID'].astype(str)\ndf_acs['tract'] = df_acs['state'] + df_acs['county'] + df_acs['tract']\ngdf_tracts = gdf_tracts.merge(df_acs, left_on='GEOID', right_on='tract', how='left')\n\n# Spatial join with hexagons (area-weighted average)\nfrom tobler.area_weighted import area_interpolate\n\ngdf_hex_socio = area_interpolate(\n    source_df=gdf_tracts,\n    target_df=gdf_hex,\n    extensive_variables=['poverty_count', 'no_vehicle_households'],\n    intensive_variables=['median_income']\n)\n\nprint(\"✓ Socioeconomic data integrated\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#calculate-lei-score",
+    "href": "methodology.html#calculate-lei-score",
+    "title": "Methodology & Workflow",
+    "section": "Calculate LEI Score",
+    "text": "Calculate LEI Score\n\n\nCode\nfrom sklearn.preprocessing import StandardScaler\n\n# Select indicators\nindicators = ['outage_density', 'mean_repair_delay', 'poverty_count', 'no_vehicle_households']\nX = gdf_hex_socio[indicators].fillna(0)\n\n# Standardize\nscaler = StandardScaler()\nX_scaled = scaler.fit_transform(X)\n\n# Simple weighted average (equal weights)\nweights = [0.3, 0.3, 0.2, 0.2]\ngdf_hex_socio['LEI'] = (X_scaled * weights).sum(axis=1)\n\n# Normalize to 0-100 scale\ngdf_hex_socio['LEI'] = ((gdf_hex_socio['LEI'] - gdf_hex_socio['LEI'].min()) / \n                         (gdf_hex_socio['LEI'].max() - gdf_hex_socio['LEI'].min())) * 100\n\ngdf_hex_socio.to_file('data/spatial/hexagons_with_LEI.geojson', driver='GeoJSON')\nprint(\"✓ Lighting Equity Index calculated\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#morans-i-for-lei",
+    "href": "methodology.html#morans-i-for-lei",
+    "title": "Methodology & Workflow",
+    "section": "Moran’s I for LEI",
+    "text": "Moran’s I for LEI\n\n\nCode\nfrom libpysal.weights import Queen\nfrom esda.moran import Moran\nimport matplotlib.pyplot as plt\n\n# Create spatial weights\nw = Queen.from_dataframe(gdf_hex_socio)\nw.transform = 'r'\n\n# Calculate Moran's I\nmoran = Moran(gdf_hex_socio['LEI'], w)\n\nprint(f\"Moran's I: {moran.I:.3f}\")\nprint(f\"P-value: {moran.p_sim:.4f}\")\nprint(f\"Interpretation: {'Clustered' if moran.p_sim &lt; 0.05 else 'Random'}\")\n\n# Plot\nfig, ax = plt.subplots(figsize=(8, 6))\nfrom splot.esda import plot_moran\nplot_moran(moran, ax=ax)\nplt.savefig('outputs/figures/morans_i_lei.png', dpi=300, bbox_inches='tight')",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#lisa-cluster-map",
+    "href": "methodology.html#lisa-cluster-map",
+    "title": "Methodology & Workflow",
+    "section": "LISA Cluster Map",
+    "text": "LISA Cluster Map\n\n\nCode\nfrom esda.moran import Moran_Local\nimport matplotlib.pyplot as plt\n\n# Local Moran's I\nlisa = Moran_Local(gdf_hex_socio['LEI'], w)\n\n# Add LISA categories to GeoDataFrame\ngdf_hex_socio['lisa_cluster'] = lisa.q\n\n# Map categories: 1=HH, 2=LH, 3=LL, 4=HL\ncluster_labels = {1: 'High-High', 2: 'Low-High', 3: 'Low-Low', 4: 'High-Low', 0: 'Not Significant'}\ngdf_hex_socio['cluster_label'] = gdf_hex_socio['lisa_cluster'].map(cluster_labels)\n\n# Plot\nfig, ax = plt.subplots(figsize=(12, 10))\ngdf_hex_socio.plot(column='cluster_label', ax=ax, legend=True, categorical=True, cmap='RdYlBu')\nax.set_title('LISA Cluster Map: Lighting Equity Index', fontsize=16)\nax.axis('off')\nplt.savefig('outputs/figures/lisa_clusters.png', dpi=300, bbox_inches='tight')",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#spatial-lag-model",
+    "href": "methodology.html#spatial-lag-model",
+    "title": "Methodology & Workflow",
+    "section": "Spatial Lag Model",
+    "text": "Spatial Lag Model\n\n\nCode\nfrom spreg import OLS, ML_Lag\nimport numpy as np\n\n# Aggregate crime counts per hexagon\ngdf_crime = gpd.read_file('data/processed/crime_nighttime.geojson')\ncrime_counts = gpd.sjoin(gdf_crime, gdf_hex_socio, how='inner').groupby('hex_id').size()\ngdf_hex_socio['crime_count'] = gdf_hex_socio['hex_id'].map(crime_counts).fillna(0)\n\n# Crime rate per km²\ngdf_hex_socio['crime_rate'] = gdf_hex_socio['crime_count'] / gdf_hex_socio['area_km2']\n\n# Prepare variables\ny = gdf_hex_socio['crime_rate'].values.reshape(-1, 1)\nX = gdf_hex_socio[['outage_density', 'mean_repair_delay', 'median_income', 'poverty_count']].fillna(0).values\n\n# Spatial Lag Model\nmodel = ML_Lag(y, X, w=w, name_y='crime_rate', \n               name_x=['outage_density', 'repair_delay', 'income', 'poverty'])\n\nprint(model.summary)",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#compute-transit-accessibility",
+    "href": "methodology.html#compute-transit-accessibility",
+    "title": "Methodology & Workflow",
+    "section": "Compute Transit Accessibility",
+    "text": "Compute Transit Accessibility\n\n\nCode\n# Load SEPTA stops\ngdf_stops = gpd.read_file('data/processed/septa_stops.geojson')\n\n# Create 400m (10-min walk) buffers\ngdf_stops_buffered = gdf_stops.to_crs('EPSG:3857')\ngdf_stops_buffered['geometry'] = gdf_stops_buffered.buffer(400)\n\n# Spatial join with hexagons\ngdf_hex_transit = gpd.sjoin(gdf_hex_socio, gdf_stops_buffered.to_crs(gdf_hex_socio.crs), \n                              how='left', predicate='intersects')\n\n# Count stops within buffer\ntransit_access = gdf_hex_transit.groupby('hex_id').size().reset_index(name='stops_nearby')\ngdf_hex_socio = gdf_hex_socio.merge(transit_access, on='hex_id', how='left')\ngdf_hex_socio['stops_nearby'] = gdf_hex_socio['stops_nearby'].fillna(0)\n\n# Calculate NTE\ngdf_hex_socio['NTE'] = (gdf_hex_socio['stops_nearby'] * gdf_hex_socio['LEI']) / 100\n\ngdf_hex_socio.to_file('data/spatial/hexagons_final.geojson', driver='GeoJSON')\nprint(\"✓ Night Transit Exposure calculated\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#random-forest-for-dark-zone-prediction",
+    "href": "methodology.html#random-forest-for-dark-zone-prediction",
+    "title": "Methodology & Workflow",
+    "section": "Random Forest for Dark Zone Prediction",
+    "text": "Random Forest for Dark Zone Prediction\n\n\nCode\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import classification_report, roc_auc_score\n\n# Define \"dark zone\" threshold (e.g., LEI &gt; 75th percentile)\nthreshold = gdf_hex_socio['LEI'].quantile(0.75)\ngdf_hex_socio['is_dark_zone'] = (gdf_hex_socio['LEI'] &gt; threshold).astype(int)\n\n# Features\nfeatures = ['outage_density', 'mean_repair_delay', 'poverty_count', \n            'no_vehicle_households', 'stops_nearby', 'crime_rate']\nX = gdf_hex_socio[features].fillna(0)\ny = gdf_hex_socio['is_dark_zone']\n\n# Split data\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# Train Random Forest\nrf = RandomForestClassifier(n_estimators=100, random_state=42)\nrf.fit(X_train, y_train)\n\n# Evaluate\ny_pred = rf.predict(X_test)\nprint(classification_report(y_test, y_pred))\nprint(f\"ROC-AUC: {roc_auc_score(y_test, rf.predict_proba(X_test)[:, 1]):.3f}\")\n\n# Feature importance\nimport pandas as pd\nimportance = pd.DataFrame({\n    'feature': features,\n    'importance': rf.feature_importances_\n}).sort_values('importance', ascending=False)\n\nprint(\"\\nFeature Importance:\")\nprint(importance)",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
+  },
+  {
+    "objectID": "methodology.html#interactive-map-with-folium",
+    "href": "methodology.html#interactive-map-with-folium",
+    "title": "Methodology & Workflow",
+    "section": "Interactive Map with Folium",
+    "text": "Interactive Map with Folium\n\n\nCode\nimport folium\nfrom folium import plugins\n\n# Create base map\nm = folium.Map(location=[39.9526, -75.1652], zoom_start=11, tiles='CartoDB dark_matter')\n\n# Add LEI choropleth\nfolium.Choropleth(\n    geo_data=gdf_hex_socio.to_json(),\n    data=gdf_hex_socio,\n    columns=['hex_id', 'LEI'],\n    key_on='feature.properties.hex_id',\n    fill_color='YlOrRd',\n    fill_opacity=0.7,\n    line_opacity=0.2,\n    legend_name='Lighting Equity Index'\n).add_to(m)\n\n# Add crime heatmap\nheat_data = [[row.geometry.y, row.geometry.x] for idx, row in gdf_crime.iterrows()]\nplugins.HeatMap(heat_data, radius=10).add_to(m)\n\n# Save\nm.save('outputs/maps/interactive_lei_map.html')\nprint(\"✓ Interactive map created\")",
+    "crumbs": [
+      "Home",
+      "Project Overview",
+      "Methodology & Workflow"
+    ]
   }
 ]

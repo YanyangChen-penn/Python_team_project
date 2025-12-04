@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>study_area – UNEQUAL NIGHTS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html-734cb40618f438257b19a1e532635a32.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Philadelphia Lighting Equity Analysis - Spatial analysis of streetlight infrastructure inequality">
+<meta name="keywords" content="GIS, urban equity, infrastructure, street lighting, spatial analysis, Philadelphia">
+<meta name="author" content="Zicheng Xiang, Zhe Fang, Yanyang Chen">
+<meta name="theme-color" content="#FFA500">
+
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body>
+
+
+
+
+
+<!-- 导航栏 -->
+<nav class="navbar">
+<span class="navbar-brand">UNEQUAL NIGHTS</span>
+<ul class="navbar-nav">
+<li class="nav-item">
+<a class="nav-link" href="index.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="research.html">Research</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="data.html">Data</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="study_area.html">Study Area</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="analysis.html">Analysis</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="findings.html">Findings</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="policy.html">Policy</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="https://github.com" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path> </svg> </a>
+</li>
+</ul>
+</nav>
+<hr>
+<h2 id="geographic-scope" class="anchored">Geographic Scope</h2>
+<h3 id="philadelphia-residential-areas" class="anchored">Philadelphia Residential Areas</h3>
+<hr>
+<h2 id="study-area-statistics" class="anchored">Study Area Statistics</h2>
+<div class="feature-grid">
+<div class="stat-card stat-card-green">
+<span class="stat-number">1,283</span> <span class="stat-label">Block Groups Analyzed</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">
+95.9% of Philadelphia
+</p>
+</div>
+<div class="stat-card">
+<span class="stat-number">55</span> <span class="stat-label">Block Groups Excluded</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">
+Non-residential areas
+</p>
+</div>
+<div class="stat-card stat-card-blue">
+<span class="stat-number">64.34</span> <span class="stat-label">km² Excluded Area</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">
+Airports, parks, industrial
+</p>
+</div>
+</div>
+<hr>
+<h2 id="selection-methodology" class="anchored">Selection Methodology</h2>
+<section id="land-use-classification-approach" class="content-box">
+<h3 class="anchored">Land Use Classification Approach</h3>
+<p>Study area selection using <strong>land use classification</strong> to ensure comparability:</p>
+<ol type="1">
+<li><strong>1,283 residential block groups</strong> were included for analysis</li>
+<li><strong>55 non-residential blocks</strong> were excluded due to unique lighting requirements not comparable to typical neighborhoods</li>
+</ol>
+<p><strong>Rationale:</strong> Non-residential areas (airports, large parks, industrial zones) have fundamentally different lighting needs and patterns that would skew residential equity analysis.</p>
+</section>
+<hr>
+<h2 id="excluded-areas-breakdown" class="anchored">Excluded Areas Breakdown</h2>
+<h3 id="non-residential-block-groups" class="anchored">55 Non-Residential Block Groups</h3>
+<div class="feature-grid">
+<div class="feature-item" style="border-top-color: var(--orange);">
+<h3 class="anchored">
+20 Areas
+</h3>
+<h4 class="anchored">
+Other Non-Residential
+</h4>
+<p style="color: var(--text-muted);">
+36.4% of exclusions
+</p>
+</div>
+<div class="feature-item" style="border-top-color: var(--green);">
+<h3 class="anchored">
+18 Areas
+</h3>
+<h4 class="anchored">
+Park/Open Space
+</h4>
+<p style="color: var(--text-muted);">
+32.7% of exclusions
+</p>
+</div>
+<div class="feature-item" style="border-top-color: var(--blue);">
+<h3 class="anchored">
+7 Areas
+</h3>
+<h4 class="anchored">
+Industrial/Port
+</h4>
+<p style="color: var(--text-muted);">
+12.7% of exclusions
+</p>
+</div>
+<div class="feature-item" style="border-top-color: var(--red);">
+<h3 class="anchored">
+6 Areas
+</h3>
+<h4 class="anchored">
+Airport
+</h4>
+<p style="color: var(--text-muted);">
+10.9% of exclusions
+</p>
+</div>
+<div class="feature-item">
+<h3 class="anchored">
+3 Areas
+</h3>
+<h4 class="anchored">
+Institutional
+</h4>
+<p style="color: var(--text-muted);">
+5.5% of exclusions
+</p>
+</div>
+<div class="feature-item">
+<h3 class="anchored">
+1 Area
+</h3>
+<h4 class="anchored">
+Water/Special Area
+</h4>
+<p style="color: var(--text-muted);">
+1.8% of exclusions
+</p>
+</div>
+</div>
+<h3 id="summary-table" class="anchored">Summary Table</h3>
+<div style="background-color: var(--bg-medium); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Count</th>
+<th>Percentage</th>
+<th>Total Area (km²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Other Non-Residential</strong></td>
+<td>20</td>
+<td>36.4%</td>
+<td>23.4</td>
+</tr>
+<tr class="even">
+<td><strong>Park/Open Space</strong></td>
+<td>18</td>
+<td>32.7%</td>
+<td>18.7</td>
+</tr>
+<tr class="odd">
+<td><strong>Industrial/Port</strong></td>
+<td>7</td>
+<td>12.7%</td>
+<td>12.2</td>
+</tr>
+<tr class="even">
+<td><strong>Airport</strong></td>
+<td>6</td>
+<td>10.9%</td>
+<td>7.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Institutional</strong></td>
+<td>3</td>
+<td>5.5%</td>
+<td>2.5</td>
+</tr>
+<tr class="even">
+<td><strong>Water/Special Area</strong></td>
+<td>1</td>
+<td>1.8%</td>
+<td>0.54</td>
+</tr>
+<tr class="odd">
+<td><strong>Total Excluded</strong></td>
+<td><strong>55</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>64.34</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="rationale-for-exclusions" class="anchored">Rationale for Exclusions</h2>
+<div>
+<blockquote>
+
+<div class="callout-title">
+Why These Areas Were Excluded
+</div>
+<h3 id="non-comparable-lighting-requirements" class="anchored">Non-Comparable Lighting Requirements</h3>
+<p>Different land uses have fundamentally different lighting needs:</p>
+<ul>
+<li><strong>Airports:</strong> FAA-regulated aviation lighting, not residential street lighting</li>
+<li><strong>Parks:</strong> Intentionally darker for ecological reasons; different safety standards</li>
+<li><strong>Industrial/Port:</strong> 24/7 operational lighting unrelated to residential equity</li>
+<li><strong>Institutional:</strong> Universities, hospitals have independent lighting systems</li>
+<li><strong>Water Bodies:</strong> No residential lighting needed</li>
+</ul>
+<p><strong>Including these areas would distort equity analysis</strong> by comparing residential neighborhoods to areas with incomparable lighting purposes.</p>
+</blockquote>
+</div>
+<hr>
+<h2 id="study-period" class="anchored">Study Period</h2>
+<section id="critical-infrastructure-transition" class="content-box content-box-blue">
+<h3 class="anchored">2022-2024: Critical Infrastructure Transition</h3>
+<p><strong>Time Frame:</strong> January 2022 - October 2024</p>
+<p><strong>Significance:</strong> This period captures the <strong>final years of 1970s-era lighting infrastructure</strong> before Philadelphia’s $91M LED replacement project launched in August 2023.</p>
+<p><strong>Why This Matters:</strong> - Documents <strong>peak infrastructure decline</strong> - Establishes <strong>pre-upgrade baseline</strong> for equity analysis - Captures <strong>worst-case scenario</strong> of aging streetlight inequality - Provides evidence for <strong>proactive monitoring</strong> in future LED maintenance</p>
+</section>
+<hr>
+<h2 id="data-coverage" class="anchored">Data Coverage</h2>
+<h3 id="complete-residential-coverage" class="anchored">Complete Residential Coverage</h3>
+<div class="feature-grid">
+<div class="stat-card">
+<span class="stat-number">95.9%</span> <span class="stat-label">Geographic Coverage</span>
+<p style="margin-top: 1rem;">
+Of Philadelphia’s total area
+</p>
+</div>
+<div class="stat-card stat-card-green">
+<span class="stat-number">100%</span> <span class="stat-label">Residential Coverage</span>
+<p style="margin-top: 1rem;">
+All residential block groups included
+</p>
+</div>
+<div class="stat-card stat-card-blue">
+<span class="stat-number">1,283</span> <span class="stat-label">Analysis Units</span>
+<p style="margin-top: 1rem;">
+Block group resolution
+</p>
+</div>
+</div>
+<hr>
+<h2 id="spatial-resolution" class="anchored">Spatial Resolution</h2>
+<section id="block-group-level-analysis" class="content-box">
+<h3 class="anchored">Block Group Level Analysis</h3>
+<p><strong>Geographic Unit:</strong> U.S. Census Block Groups</p>
+<p><strong>Why Block Groups?</strong> - Fine enough resolution to detect neighborhood-level inequality - Coarse enough to protect individual privacy - Aligns with Census demographic data - Standard unit for urban planning analysis</p>
+<p><strong>Population Range:</strong> Typically 600-3,000 residents per block group</p>
+<p><strong>Area Range:</strong> 0.1-2.0 kmÂ² per block group in Philadelphia</p>
+</section>
+<hr>
+<h2 id="boundary-considerations" class="anchored">Boundary Considerations</h2>
+<div>
+<blockquote>
+
+<div class="callout-title">
+Edge Effects
+</div>
+<p>Block groups at Philadelphia’s boundary were included if their centroid fell within city limits. This standard approach ensures:</p>
+<ul>
+<li>Consistent treatment of all residential areas</li>
+<li>Minimal edge effects in spatial analysis</li>
+<li>Alignment with Census Bureau methodology</li>
+</ul>
+</blockquote>
+</div>
+<hr>
+<h2 id="next-steps" class="anchored">Next Steps</h2>
+<p>Continue to <a href="./analysis.html">Analysis</a> to see detailed spatial analysis results.</p>
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yourusername\.github\.io\/unequal-nights");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

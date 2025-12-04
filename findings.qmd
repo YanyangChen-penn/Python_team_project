@@ -1,0 +1,367 @@
+---
+format:
+  html:
+    toc: false
+execute:
+  enabled: false
+---
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+---
+
+## Summary of Key Numbers
+
+<div class="feature-grid">
+
+<div class="stat-card stat-card-red">
+<span class="stat-number">62</span>
+<span class="stat-label">Complaint Gap Areas</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Underserved neighborhoods identified</p>
+</div>
+
+<div class="stat-card stat-card-blue">
+<span class="stat-number">582</span>
+<span class="stat-label">Predicted to Darken</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Block groups showing decline</p>
+</div>
+
+<div class="stat-card stat-card-orange">
+<span class="stat-number">80%</span>
+<span class="stat-label">Currently Declining</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Of all Philadelphia areas</p>
+</div>
+
+<div class="stat-card stat-card-green">
+<span class="stat-number">RÂ² = 0.997</span>
+<span class="stat-label">Model Accuracy</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Random Forest performance</p>
+</div>
+
+</div>
+
+---
+
+## Finding 1: The Complaint Gap
+
+<div class="content-box content-box-red">
+
+### 62 Underserved Areas Where Darkness, Low Complaints, and Low Income Converge
+
+**The Paradox:** The darkest areas file **76% fewer complaints** than city average
+
+**The Pattern:** These are also the **lowest-income neighborhoods** ($42,800 vs. $67,200 average)
+
+**The Implication:** The 311 system systematically misses the communities that need help most
+
+</div>
+
+### Gap vs Non-Gap Comparison
+
+<div style="background-color: var(--bg-medium); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+
+| Metric | Gap Areas | Non-Gap Areas | Difference |
+|--------|-----------|---------------|------------|
+| **Average Income** | $42,800 | $67,200 | **-36%** â¬‡ï¸ |
+| **Average VIIRS** | 0.31 | 0.89 | **-65%** â¬‡ï¸ |
+| **311 Complaints/kmÂ²** | 2.1 | 8.7 | **-76%** â¬‡ï¸ |
+
+</div>
+
+<div class="callout callout-danger">
+<div class="callout-title">Critical Insight</div>
+
+**These communities need PROACTIVE intervention, not reactive 311 responses.**
+
+Traditional maintenance waits for complaints. But barriers to reporting (language, time, distrust, awareness) mean some neighborhoods remain dark while never filing complaints.
+
+</div>
+
+---
+
+## Finding 2: Citywide Decline
+
+<div class="content-box content-box-orange">
+
+### Philadelphia Lighting Is Declining Citywide
+
+**Model Prediction:** 582 block groups will experience continued brightness decline
+
+**Current Status:** 80% of Philadelphia block groups showed decreasing light levels from 2022-2024
+
+**Historical Context:** Streetlights date to the 1970s; our data captures peak infrastructure decline before the $91M LED upgrade
+
+</div>
+
+<div class="callout callout-warning">
+<div class="callout-title">Act Before Failure</div>
+
+**Priority intervention needed before infrastructure failure.** 
+
+The predictive model (RÂ²=0.997) provides early warning system to deploy resources to 582 predicted darkening areas BEFORE they reach crisis point.
+
+</div>
+
+---
+
+## Finding 3: Safer Routes Exist
+
+<div class="content-box content-box-green">
+
+### Small Distance Penalty = Large Safety Gain
+
+**52 routes analyzed** between key Philadelphia locations
+
+**Trade-off Discovered:**
+- **+1-3% longer distance**
+- **= Up to 20% safer** (lower risk exposure)
+
+**Most Effective:** Chinatown route shows greatest risk reduction
+
+</div>
+
+### Network Analysis Insights
+
+<div class="feature-grid">
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>Risk-Weighted Routing</h4>
+<p>OSMnx + NetworkX calculated optimal paths considering darkness, crime, and lighting</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>Practical Applications</h4>
+<p>Navigation apps could incorporate lighting quality into route recommendations for night travel</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>Equity Implications</h4>
+<p>Better-lit routes often require private vehicle access; transit riders face higher exposure</p>
+</div>
+
+</div>
+
+---
+
+## Finding 4: Lighting Inequality Is Spatial
+
+<div class="content-box content-box-blue">
+
+### Clear Geographic Patterns
+
+**Center City:** Brightest area, highest complaint rates, fastest repairs
+
+**North Philadelphia:** Darkest areas, lowest complaint rates, longest wait times
+
+**Southwest Corridors:** Medium darkness, very low complaints, high vulnerability
+
+**Pattern:** Inequality radiates outward from downtown core
+
+</div>
+
+---
+
+## Limitations
+
+<div class="callout">
+<div class="callout-title">Acknowledged Limitations</div>
+
+### Data Constraints
+
+- **VIIRS resolution (500m)** may miss localized outages
+- **311 data reflects reporting behavior**, not actual conditions
+- **Cross-sectional analysis**; causation not definitively established
+- **Temporal scope:** 2022-2024 captures specific infrastructure period
+
+### Methodological Considerations
+
+- Reclassification to 1-5 scale involves judgment in breakpoint selection
+- Weighting scheme (30-30-20-20) based on literature but could be adjusted
+- Block group analysis may mask within-neighborhood variation
+
+### Generalizability
+
+- Philadelphia-specific findings; other cities may show different patterns
+- Pre-LED upgrade baseline; future monitoring needed to assess LED equity
+
+</div>
+
+---
+
+## Future Work
+
+<div class="feature-grid">
+
+<div class="feature-item" style="border-top-color: var(--blue);">
+<h4>ðŸ“¡ Real-Time Monitoring</h4>
+<p>Integrate real-time 311 monitoring with monthly VIIRS updates for dynamic tracking</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>ðŸ” Field Validation</h4>
+<p>Ground-truth Complaint Gap areas with field surveys and resident interviews</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--orange);">
+<h4>ðŸŒŽ Multi-City Expansion</h4>
+<p>Apply methodology to other cities (Chicago, LA, NYC) for comparative analysis</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--red);">
+<h4>ðŸ”® LED Impact Assessment</h4>
+<p>Continue monitoring post-LED installation to evaluate equity outcomes</p>
+</div>
+
+</div>
+
+---
+
+## Conclusion
+
+<div class="content-box" style="border-left-color: var(--gold); background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-light) 100%);">
+
+### Systemic Lighting Inequality Revealed
+
+<h3 style="color: var(--gold); font-style: italic;">
+This analysis reveals systemic lighting inequality in Philadelphia.
+</h3>
+
+**Communities that need light the most are least likely to report problems** â€” creating a gap that perpetuates inequity.
+
+</div>
+
+### The Three-Part Problem
+
+<div class="feature-grid">
+
+<div class="feature-item" style="border-top-color: var(--red);">
+<h4>ðŸŒ‘ Objective Darkness</h4>
+<p>VIIRS data shows peripheral neighborhoods 65% darker than downtown</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--blue);">
+<h4>ðŸ“‰ Reporting Gap</h4>
+<p>Darkest areas file 76% fewer complaints due to systemic barriers</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--orange);">
+<h4>âš–ï¸ Compounding Vulnerability</h4>
+<p>Low-income areas face both darkness AND lack voice to demand fixes</p>
+</div>
+
+</div>
+
+---
+
+## Significance
+
+<div class="callout callout-success">
+<div class="callout-title">Why This Research Matters</div>
+
+### From Data to Justice
+
+**Data should not only reveal darkness, but it should also help cities decide where to shine next.**
+
+This project demonstrates how **spatial data science can illuminate pathways to justice**â€”one streetlight at a time.
+
+By transforming satellite data into actionable insights, we:
+
+1. **Expose** systematic infrastructure inequality invisible to complaint systems
+2. **Predict** which neighborhoods will darken next
+3. **Propose** evidence-based interventions for equitable maintenance
+4. **Provide** tools for ongoing monitoring and accountability
+
+</div>
+
+---
+
+## Context: The Critical Transition Period
+
+<div class="content-box content-box-blue">
+
+### Capturing Peak Infrastructure Decline
+
+Philadelphia's streetlights date back to the **1970s**. The 2022-2024 period captured the **critical transition** before the city's **$91M LED replacement project** (launched August 2023).
+
+**Why This Timing Matters:**
+- Documents worst-case scenario of aging infrastructure
+- Establishes baseline for measuring LED upgrade equity
+- Makes case for proactive monitoring even with new technology
+- Shows importance of satellite-based tracking regardless of infrastructure age
+
+**The Challenge Ahead:** Will the new LED system be maintained equitably? Or will the same complaint-driven disparities persist with new technology?
+
+</div>
+
+---
+
+## The Path Forward
+
+<div class="content-box content-box-green">
+
+### Four Pillars of Lighting Equity
+
+1. **SATELLITE MONITORING**
+   - Use VIIRS data to supplement (not replace) 311 system
+   - Monthly updates flag darkening areas proactively
+
+2. **PRIORITY AREAS**
+   - Focus maintenance on 62 Complaint Gap areas first
+   - Address systematic underservice, not just reported problems
+
+3. **PREDICTIVE MAINTENANCE**
+   - Deploy resources to 582 predicted darkening areas
+   - Prevent failures rather than react to them
+
+4. **EQUITY DASHBOARD**
+   - Public monitoring dashboard tracking lighting equity
+   - Transparent accountability for maintenance distribution
+
+</div>
+
+---
+
+## Final Reflection
+
+<div style="background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%); padding: 3rem; border-radius: 12px; border-left: 4px solid var(--gold); margin: 2rem 0;">
+
+<p style="font-size: 1.3rem; line-height: 1.8; color: var(--text-light); font-style: italic;">
+Every streetlight outage represents more than a technical failureâ€”it reflects a gap in the urban social contract.
+</p>
+
+<p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-light); margin-top: 1.5rem;">
+When repairs take weeks in some neighborhoods and days in others, we're not just seeing infrastructure inequality; we're witnessing the compounding of disadvantage.
+</p>
+
+<p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-light); margin-top: 1.5rem;">
+Low-income communities already face higher crime rates, limited transit options, and fewer private vehicles. Prolonged darkness adds another layer of vulnerability, constraining mobility, economic opportunity, and quality of life.
+</p>
+
+<p style="font-size: 1.2rem; line-height: 1.8; color: var(--gold); margin-top: 2rem; font-weight: 600;">
+Each light restored is not just an infrastructure fixâ€”it represents restored public trust.
+</p>
+
+</div>
+
+---
+
+## Continue to Policy Recommendations
+
+See [Policy](policy.qmd) for actionable recommendations based on these findings.

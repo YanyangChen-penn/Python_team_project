@@ -1,0 +1,406 @@
+---
+format:
+  html:
+    toc: false
+execute:
+  enabled: false
+---
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+---
+
+## The Paradigm Shift
+
+<div style="text-align: center; padding: 3rem; background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-light) 100%); border-radius: 12px; margin: 2rem 0;">
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap;">
+
+<div style="flex: 1; min-width: 250px; background-color: #34495e; padding: 2rem; border-radius: 8px; border-top: 3px solid var(--red);">
+<h3 style="color: var(--red); font-size: 1.8rem;">REACTIVE</h3>
+<p style="font-size: 1.2rem; color: var(--text-light);">Wait for complaints</p>
+<p style="color: var(--text-muted); margin-top: 1rem;">â†“</p>
+<p style="color: var(--text-muted);">Traditional 311 System</p>
+</div>
+
+<div style="font-size: 3rem; color: var(--gold);">â†’</div>
+
+<div style="flex: 1; min-width: 250px; background-color: #2c5530; padding: 2rem; border-radius: 8px; border-top: 3px solid var(--green);">
+<h3 style="color: var(--green); font-size: 1.8rem;">PROACTIVE</h3>
+<p style="font-size: 1.2rem; color: var(--text-light);">Satellite-driven</p>
+<p style="color: var(--text-muted); margin-top: 1rem;">â†“</p>
+<p style="color: var(--text-muted);">Data-Informed Equity</p>
+</div>
+
+</div>
+
+</div>
+
+---
+
+## Four Policy Pillars
+
+<div class="feature-grid">
+
+<div class="content-box" style="border-left-color: var(--red); min-height: 300px;">
+<h3 style="color: var(--red);">1. Priority Areas</h3>
+<h4>Focus on the 62 Complaint Gap Areas First</h4>
+
+**Implementation:**
+- Designate Complaint Gap areas as "priority maintenance zones"
+- Establish 48-hour repair target (vs. current reactive approach)
+- Allocate 30% of maintenance budget to these underserved areas
+
+**Rationale:**
+These communities are systematically underserved by the 311 system. They need proactive attention, not reactive response.
+
+**Expected Impact:**
+- Reduce lighting inequality by 40% within 2 years
+- Restore trust in government services
+- Improve safety in most vulnerable neighborhoods
+
+</div>
+
+<div class="content-box" style="border-left-color: var(--blue); min-height: 300px;">
+<h3 style="color: var(--blue);">2. Satellite Monitoring</h3>
+<h4>Use VIIRS Data to Supplement 311 System</h4>
+
+**Implementation:**
+- Monthly VIIRS downloads and analysis
+- Automated flagging of darkening areas
+- Integration with work order system
+
+**Rationale:**
+Don't rely solely on complaints. Satellite data reveals what the 311 system misses.
+
+**Expected Impact:**
+- Identify problems before residents complain
+- Catch 65% more lighting issues
+- Enable predictive maintenance scheduling
+
+</div>
+
+<div class="content-box" style="border-left-color: var(--green); min-height: 300px;">
+<h3 style="color: var(--green);">3. Equity Dashboard</h3>
+<h4>Build Public Monitoring Dashboard</h4>
+
+**Implementation:**
+- Web-based dashboard tracking:
+  - Lighting equity across neighborhoods
+  - 311 complaint rates vs. actual darkness
+  - Repair response times by area
+  - LED upgrade progress and equity
+
+**Rationale:**
+Transparency creates accountability. Public monitoring ensures equitable service delivery.
+
+**Expected Impact:**
+- Increase public trust through transparency
+- Enable community advocacy with data
+- Hold city accountable to equity metrics
+
+</div>
+
+<div class="content-box" style="border-left-color: var(--orange); min-height: 300px;">
+<h3 style="color: var(--orange);">4. Predictive Maintenance</h3>
+<h4>Deploy Resources to 582 Predicted Areas</h4>
+
+**Implementation:**
+- Use Random Forest predictions to guide inspection schedules
+- Preventive maintenance in predicted darkening areas
+- Quarterly model updates with new VIIRS data
+
+**Rationale:**
+Act before failure. 80% of Philadelphia already decliningâ€”intervene proactively.
+
+**Expected Impact:**
+- Reduce infrastructure failures by 50%
+- Lower long-term maintenance costs
+- Prevent safety incidents in high-risk areas
+
+</div>
+
+</div>
+
+---
+
+## Implementation Roadmap
+
+### Phase 1: Immediate Actions (Months 1-3)
+
+<div class="content-box">
+
+**Launch Priority Area Program**
+- Identify and map 62 Complaint Gap areas
+- Deploy rapid response teams
+- Establish 48-hour repair target
+
+**Set Up Data Infrastructure**
+- Monthly VIIRS data downloads
+- Integrate with existing work order system
+- Train maintenance staff on new protocols
+
+**Budget:** $500K initial investment
+**Staff:** 2 FTE data analysts, 5 FTE maintenance technicians
+
+</div>
+
+---
+
+### Phase 2: System Integration (Months 4-9)
+
+<div class="content-box content-box-blue">
+
+**Build Equity Dashboard**
+- Design public-facing web interface
+- Integrate VIIRS, 311, maintenance data
+- Launch with community feedback sessions
+
+**Implement Predictive Maintenance**
+- Deploy Random Forest model in production
+- Generate quarterly maintenance schedules
+- Monitor intervention effectiveness
+
+**Budget:** $800K development and deployment
+**Staff:** 3 FTE developers, 1 FTE project manager
+
+</div>
+
+---
+
+### Phase 3: Evaluation & Expansion (Months 10-24)
+
+<div class="content-box content-box-green">
+
+**Measure Impact**
+- Compare pre/post lighting equity metrics
+- Survey residents in Complaint Gap areas
+- Assess safety outcomes (crime, accidents)
+
+**Refine & Expand**
+- Adjust priority criteria based on results
+- Expand satellite monitoring to detect LED failures
+- Share methodology with other cities
+
+**Budget:** $300K evaluation and refinement
+**Staff:** 2 FTE evaluators, community engagement team
+
+</div>
+
+---
+
+## Budget Summary
+
+<div style="background-color: var(--bg-medium); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+
+| Phase | Investment | Timeline | ROI |
+|-------|-----------|----------|-----|
+| **Phase 1: Priority Areas** | $500K | Months 1-3 | Immediate equity gains |
+| **Phase 2: System Integration** | $800K | Months 4-9 | 50% failure reduction |
+| **Phase 3: Evaluation** | $300K | Months 10-24 | Long-term cost savings |
+| **Total 2-Year Program** | **$1.6M** | 24 months | **$4M+ savings** |
+
+</div>
+
+<div class="callout callout-success">
+<div class="callout-title">Cost-Benefit Analysis</div>
+
+**Investment:** $1.6M over 2 years
+
+**Expected Savings:**
+- $2M in prevented emergency repairs (50% failure reduction)
+- $1M in optimized maintenance scheduling
+- $1M+ in reduced crime/accident costs
+
+**Net Benefit:** $2.4M+ over 2 years (150% ROI)
+
+**Non-Monetary Benefits:**
+- Improved public safety in vulnerable areas
+- Restored community trust in government
+- Reduced health/economic impacts of darkness
+
+</div>
+
+---
+
+## Stakeholder Engagement
+
+### Key Partners
+
+<div class="feature-grid">
+
+<div class="feature-item" style="border-top-color: var(--blue);">
+<h4>ðŸ›ï¸ City Agencies</h4>
+<p><strong>Philadelphia Streets Department:</strong> Maintenance implementation</p>
+<p><strong>Office of Innovation & Technology:</strong> Dashboard development</p>
+<p><strong>Police Department:</strong> Safety data integration</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4>ðŸ˜ï¸ Community Organizations</h4>
+<p><strong>Neighborhood associations</strong> in 62 Gap areas</p>
+<p><strong>Advocacy groups:</strong> Public participation and feedback</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--orange);">
+<h4>ðŸŽ“ Academic Partners</h4>
+<p><strong>University of Pennsylvania:</strong> Ongoing monitoring and evaluation</p>
+<p><strong>Temple University:</strong> Community engagement research</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--red);">
+<h4>ðŸ’° Funding Sources</h4>
+<p><strong>Infrastructure Investment:</strong> Federal/state grants</p>
+<p><strong>Foundation Support:</strong> Equity-focused funding</p>
+</div>
+
+</div>
+
+---
+
+## Success Metrics
+
+### How We'll Measure Impact
+
+<div class="content-box">
+
+**Equity Metrics:**
+- Gap area VIIRS brightness increase (target: +30%)
+- 311 complaint rate convergence (target: Â±20% of city average)
+- Income-lighting correlation reduction (target: -50%)
+
+**Operational Metrics:**
+- Repair response time in Gap areas (target: <48 hours)
+- Preventive interventions in predicted areas (target: 582 sites/year)
+- Infrastructure failure rate (target: -50%)
+
+**Community Metrics:**
+- Resident satisfaction in Gap areas (target: +40%)
+- Perception of safety improvement (target: +35%)
+- 311 system awareness and access (target: +50%)
+
+</div>
+
+---
+
+## Policy Recommendations Summary
+
+<div style="background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--gold); margin: 2rem 0;">
+
+### The Urgent Case for Action
+
+**Model predicts 582 areas will darken. 80% of Philadelphia already declining. Act before failure.**
+
+Philadelphia's streetlights date to the 1970s. Our 2022-2024 data captures the **critical period before the $91M LED project**â€”documenting peak infrastructure decline.
+
+**This research provides the roadmap to ensure the new LED system doesn't perpetuate old inequities.**
+
+</div>
+
+---
+
+## Replicability
+
+<div class="callout">
+<div class="callout-title">A Model for Other Cities</div>
+
+This methodology is **fully replicable** in other U.S. cities:
+
+**Required Data (all publicly available):**
+- VIIRS satellite imagery (NASA, free)
+- 311 service requests (city open data)
+- Crime incidents (police open data)
+- Census demographics (ACS 5-year)
+
+**Required Tools (all open-source):**
+- Python (pandas, geopandas, scikit-learn)
+- QGIS or ArcGIS
+- R/Quarto for reporting
+
+**Timeline:** 3-6 months from data collection to policy recommendations
+
+**Cities ready to replicate:** Chicago, Los Angeles, New York, Detroit, Baltimore
+
+</div>
+
+---
+
+## Call to Action
+
+<div style="background-color: var(--red); color: white; padding: 3rem; border-radius: 12px; margin: 2rem 0; text-align: center;">
+
+<h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem;">
+Every Light Restored = Trust Restored
+</h2>
+
+<p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem;">
+This analysis reveals systemic lighting inequality in Philadelphia. Communities that need light the most are least likely to report problemsâ€”creating a gap that perpetuates inequity.
+</p>
+
+<p style="font-size: 1.5rem; font-weight: 600;">
+The data is clear. The solution is actionable. The time is now.
+</p>
+
+</div>
+
+---
+
+## Next Steps for Philadelphia
+
+1. **Present findings** to Philadelphia Streets Department and City Council
+2. **Secure funding** for Phase 1 priority area program
+3. **Launch pilot** in 5-10 Complaint Gap areas
+4. **Build dashboard** prototype for public transparency
+5. **Establish** ongoing monitoring partnership with academic institutions
+
+---
+
+## Contact & Resources
+
+<div class="content-box">
+
+### Project Team
+
+**Zicheng Xiang, Zhe Fang, Yanyang Chen**
+
+University of Pennsylvania  
+Master of Urban Spatial Analytics (MUSA)
+
+**Course:** MUSA 5080 - Public Policy Analytics
+
+**Repository:** [GitHub Project Link]
+
+**Dashboard:** [Live Dashboard Link]
+
+</div>
+
+---
+
+<div style="background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-dark) 100%); padding: 2rem; border-radius: 8px; text-align: center; margin-top: 3rem;">
+
+<p style="font-size: 1.2rem; color: var(--gold); font-style: italic;">
+"Data should not only reveal darkness, but it should also help cities decide where to shine next."
+</p>
+
+<p style="margin-top: 1.5rem; color: var(--text-light);">
+By transforming 311 maintenance data and satellite imagery into actionable insight, this project demonstrates how <strong>spatial data science can illuminate pathways to justice</strong>â€”one streetlight at a time.
+</p>
+
+</div>

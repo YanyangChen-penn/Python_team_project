@@ -1,0 +1,414 @@
+---
+format:
+  html:
+    toc: false
+execute:
+  enabled: false
+---
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+---
+
+## Data Sources
+
+### Primary Datasets
+
+<div class="feature-grid">
+
+<div class="content-box" style="border-left-color: var(--gold);">
+<h3>ðŸ›°ï¸ VIIRS Satellite Data</h3>
+<p><strong>Source:</strong> NASA Black Marble (VNP46A2)</p>
+<p><strong>Period:</strong> 2022-2024</p>
+<p><strong>Purpose:</strong> Nighttime light radiance measurement</p>
+<p><strong>Resolution:</strong> 500m</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--blue);">
+<h3>ðŸ“ž 311 Service Requests</h3>
+<p><strong>Source:</strong> OpenDataPhilly</p>
+<p><strong>Type:</strong> Street light outage complaints</p>
+<p><strong>Purpose:</strong> Complaint patterns and response times</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--red);">
+<h3>ðŸš¨ Crime Data</h3>
+<p><strong>Source:</strong> Philadelphia Police Department</p>
+<p><strong>Type:</strong> Incident locations (Part 1 & 2)</p>
+<p><strong>Purpose:</strong> Safety risk analysis</p>
+<p><strong>Filter:</strong> Nighttime incidents (7pm-6am)</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--green);">
+<h3>ðŸ‘¥ Census Demographics</h3>
+<p><strong>Source:</strong> ACS 5-Year Estimates</p>
+<p><strong>Variables:</strong> Population, income, housing data</p>
+<p><strong>Purpose:</strong> Socioeconomic equity analysis</p>
+<p><strong>Geography:</strong> Block group level</p>
+</div>
+
+</div>
+
+---
+
+## Analysis Tools
+
+<div class="content-box">
+
+### GIS & Spatial Analysis
+
+**Raster Tools:**
+- Reclassify
+- Raster Calculator  
+- Focal Statistics
+
+**Zonal Tools:**
+- Zonal Statistics
+- Summary Statistics
+
+**Network Tools:**
+- Distance Accumulation
+- Optimal Path
+
+**Overlay Tools:**
+- Spatial Join
+
+</div>
+
+<div class="content-box" style="border-left-color: var(--blue);">
+
+### Python Libraries
+
+**Data Processing:**
+- pandas, geopandas
+
+**Machine Learning:**
+- scikit-learn (Random Forest, GridSearchCV)
+
+**Network Analysis:**
+- NetworkX, OSMnx
+
+**Visualization:**
+- matplotlib, seaborn, plotly
+
+</div>
+
+---
+
+## Methodology Overview
+
+<div style="text-align: center; padding: 2rem;">
+
+```{mermaid}
+%%| fig-width: 10
+graph TD
+    A[VIIRS Satellite] --> E[Reclassify<br/>Layer 1-5]
+    B[311 Data] --> E
+    C[Crime Data] --> E
+    D[Census Data] --> E
+    
+    E --> F[Cost Surface<br/>Weighted Risk]
+    
+    F --> G[Spatial Analysis<br/>Zonal + Focal]
+    
+    G --> H[Complaint Gap<br/>62 Areas]
+    G --> I[Predictive Model<br/>Random Forest]
+    G --> J[Safe Paths<br/>Network Analysis]
+    
+    H --> K[Policy<br/>Recommendations]
+    I --> K
+    J --> K
+    
+    style A fill:#4A90E2
+    style B fill:#4A90E2
+    style C fill:#FF6B6B
+    style D fill:#2ECC71
+    style E fill:#F39C12
+    style F fill:#F39C12
+    style G fill:#F39C12
+    style H fill:#FF6B6B
+    style I fill:#4A90E2
+    style J fill:#2ECC71
+    style K fill:#FFA500
+```
+
+</div>
+
+---
+
+## Phase 1: Reclassification & Cost Surface
+
+### Step 1: Reclassify Variables to 1-5 Scale
+
+Each factor was standardized to a common 1-5 scale for comparison:
+
+<div class="feature-grid">
+
+<div class="feature-item">
+<h4>Darkness</h4>
+<p>VIIRS radiance inverted (darker = higher score)</p>
+</div>
+
+<div class="feature-item">
+<h4>Crime Rate</h4>
+<p>Nighttime incidents per square kilometer</p>
+</div>
+
+<div class="feature-item">
+<h4>Low 311</h4>
+<p>Inverse of complaint density (fewer = higher score)</p>
+</div>
+
+<div class="feature-item">
+<h4>Low Income</h4>
+<p>Below-median household income areas</p>
+</div>
+
+</div>
+
+### Step 2: Create Weighted Cost Surface
+
+<div class="content-box">
+
+**Raster Calculator Formula:**
+
+```
+CostSurf_Risk = 
+    0.30 Ã— Darkness +
+    0.30 Ã— Crime +
+    0.20 Ã— Low311 +
+    0.20 Ã— LowIncome
+```
+
+**Rationale for Weights:**
+- **30% Darkness**: Primary objective measure of lighting
+- **30% Crime**: Direct safety impact
+- **20% Low 311**: Indicates underreporting
+- **20% Low Income**: Vulnerability indicator
+
+Higher values indicate higher-risk areas requiring priority attention.
+
+</div>
+
+---
+
+## Phase 2: Neighborhood Analysis
+
+### Zonal Statistics
+
+<div class="content-box content-box-blue">
+
+**Purpose:** Calculate mean VIIRS radiance within each block group boundary
+
+**Method:** Zonal Statistics tool aggregates satellite pixel values to census geography for statistical comparison
+
+**Output:** `Zonal_VIIRS_Mean` layer showing average brightness per block group
+
+**Key Finding:** Center City is brightest; peripheral neighborhoods show significantly lower lighting levels
+
+</div>
+
+### Focal Statistics
+
+<div class="content-box content-box-green">
+
+**Purpose:** Smooth brightness values to reveal spatial patterns
+
+**Method:** Circular neighborhood window calculates mean of surrounding pixels
+
+**Output:** `VIIRSFocalMean` layer revealing lighting concentration patterns
+
+**Result:** Center City shows highest brightness concentration; peripheral areas significantly darker
+
+</div>
+
+---
+
+## Phase 3: Complaint Gap Identification
+
+<div class="content-box content-box-red">
+
+### Three-Criteria Overlap Analysis
+
+**Using Python spatial analysis:**
+
+```python
+# Identify areas where all three criteria overlap
+complaint_gap = gdf[
+    (gdf['VIIRS_mean'] < viirs_threshold) &      # Low brightness
+    (gdf['complaint_rate'] < complaint_threshold) &  # Low 311
+    (gdf['income'] < income_threshold)            # Low income
+]
+```
+
+**Result:** 62 Complaint Gap areas identified
+
+</div>
+
+### Gap Area Characteristics
+
+<div style="background-color: var(--bg-medium); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+
+| Metric | Gap Areas | Non-Gap Areas | Difference |
+|--------|-----------|---------------|------------|
+| **Avg Income** | $42,800 | $67,200 | -36% |
+| **Avg VIIRS** | 0.31 | 0.89 | -65% |
+| **311 Complaints/kmÂ²** | 2.1 | 8.7 | -76% |
+
+</div>
+
+<div class="callout callout-warning">
+<div class="callout-title">Critical Finding</div>
+Gap areas are **38% lower income**, **65% darker**, and file **76% fewer complaints** than city average.
+</div>
+
+---
+
+## Phase 4: Predictive Modeling
+
+### Random Forest Regressor
+
+<div class="content-box content-box-blue">
+
+**Model Configuration:**
+- Algorithm: Random Forest Regressor (scikit-learn)
+- Hyperparameter Tuning: GridSearchCV
+- Performance: RÂ² = 0.997
+
+**Top Predictive Features:**
+1. Historical brightness trend
+2. Current VIIRS level  
+3. 311 complaint density
+4. Income & population
+
+**Output:** `predicted_darkening_areas` layer with 582 block groups
+
+</div>
+
+<div class="stat-card stat-card-orange" style="max-width: 500px; margin: 2rem auto;">
+<span class="stat-number">80%</span>
+<span class="stat-label">of Philadelphia Currently Darkening</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Block groups showed decreasing light levels from 2022-2024</p>
+</div>
+
+<div class="callout callout-danger">
+<div class="callout-title">Urgent Finding</div>
+**Philadelphia lighting is declining citywide.** Priority intervention needed before infrastructure failure.
+</div>
+
+---
+
+## Phase 5: Safe Path Analysis
+
+### Network Analysis Methodology
+
+<div class="feature-grid">
+
+<div class="content-box">
+<h4>ArcGIS Approach</h4>
+<p><strong>Tools:</strong> Distance Accumulation + Optimal Path</p>
+<p><strong>Input:</strong> CostSurf_Risk raster</p>
+<p><strong>Limitation:</strong> Raster-based paths cut through buildings</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--green);">
+<h4>Python Approach âœ…</h4>
+<p><strong>Tools:</strong> OSMnx + NetworkX</p>
+<p><strong>Method:</strong> Street network routing with risk-weighted edges</p>
+<p><strong>Routes:</strong> 52 origin-destination pairs</p>
+</div>
+
+</div>
+
+### Route Comparison Results
+
+<div class="content-box content-box-green">
+
+**52 routes analyzed** between key Philadelphia locations:
+- City Hall
+- Temple University
+- 30th Street Station
+- University City
+- Chinatown
+- Major transit hubs
+
+**Trade-off:**
+- **+1-3% Distance** increase
+- **Up to 20% Safer** routes
+
+ðŸ® **Chinatown route shows greatest risk reduction**
+
+</div>
+
+---
+
+## Data Quality & Limitations
+
+<div class="callout">
+<div class="callout-title">Acknowledged Limitations</div>
+
+- **VIIRS resolution (500m)** may miss localized outages
+- **311 data reflects reporting behavior**, not actual conditions
+- **Cross-sectional analysis**; causation not established
+- **Temporal scope:** 2022-2024 captures pre-LED upgrade period
+
+</div>
+
+---
+
+## Technical Implementation
+
+### Workflow Summary
+
+1. **Data Integration** (Python)
+   - Merge VIIRS, 311, Crime, Census data
+   - Create `philly_integrated_data.shp`
+
+2. **Reclassification** (ArcGIS)
+   - Standardize each variable to 1-5 scale
+   - Generate reclassified layers
+
+3. **Cost Surface** (ArcGIS Raster Calculator)
+   - Apply weighted formula
+   - Output: `CostSurf_Risk`
+
+4. **Spatial Analysis** (ArcGIS + Python)
+   - Zonal Statistics for aggregation
+   - Focal Statistics for smoothing
+   - Python for Complaint Gap identification
+
+5. **Predictive Modeling** (Python scikit-learn)
+   - Train Random Forest
+   - Generate predictions
+   - Validate with cross-validation
+
+6. **Network Analysis** (Python OSMnx)
+   - Build street network graph
+   - Calculate risk-weighted shortest paths
+   - Compare safe vs. fast routes
+
+---
+
+## Next Steps
+
+Continue to:
+- [Study Area](study-area.qmd) - Geographic scope and exclusions
+- [Analysis](analysis.qmd) - Detailed results and visualizations
+- [Findings](findings.qmd) - Key discoveries and implications

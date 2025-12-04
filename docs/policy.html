@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>policy – UNEQUAL NIGHTS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html-734cb40618f438257b19a1e532635a32.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Philadelphia Lighting Equity Analysis - Spatial analysis of streetlight infrastructure inequality">
+<meta name="keywords" content="GIS, urban equity, infrastructure, street lighting, spatial analysis, Philadelphia">
+<meta name="author" content="Zicheng Xiang, Zhe Fang, Yanyang Chen">
+<meta name="theme-color" content="#FFA500">
+
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body>
+
+
+
+
+
+<!-- 导航栏 -->
+<nav class="navbar">
+<span class="navbar-brand">UNEQUAL NIGHTS</span>
+<ul class="navbar-nav">
+<li class="nav-item">
+<a class="nav-link" href="index.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="research.html">Research</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="data.html">Data</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="study_area.html">Study Area</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="analysis.html">Analysis</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="findings.html">Findings</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="policy.html">Policy</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="https://github.com" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path> </svg> </a>
+</li>
+</ul>
+</nav>
+<hr>
+<h2 id="the-paradigm-shift" class="anchored">The Paradigm Shift</h2>
+<div style="text-align: center; padding: 3rem; background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-light) 100%); border-radius: 12px; margin: 2rem 0;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap;">
+<div style="flex: 1; min-width: 250px; background-color: #34495e; padding: 2rem; border-radius: 8px; border-top: 3px solid var(--red);">
+<h3 style="color: var(--red); font-size: 1.8rem;" class="anchored">
+REACTIVE
+</h3>
+<p style="font-size: 1.2rem; color: var(--text-light);">
+Wait for complaints
+</p>
+<p style="color: var(--text-muted); margin-top: 1rem;">
+
+</p>
+<p style="color: var(--text-muted);">
+Traditional 311 System
+</p>
+</div>
+<div style="font-size: 3rem; color: var(--gold);">
+
+</div>
+<div style="flex: 1; min-width: 250px; background-color: #2c5530; padding: 2rem; border-radius: 8px; border-top: 3px solid var(--green);">
+<h3 style="color: var(--green); font-size: 1.8rem;" class="anchored">
+PROACTIVE
+</h3>
+<p style="font-size: 1.2rem; color: var(--text-light);">
+Satellite-driven
+</p>
+<p style="color: var(--text-muted); margin-top: 1rem;">
+
+</p>
+<p style="color: var(--text-muted);">
+Data-Informed Equity
+</p>
+</div>
+</div>
+</div>
+<hr>
+<h2 id="four-policy-pillars" class="anchored">Four Policy Pillars</h2>
+<div class="feature-grid">
+<div class="content-box" style="border-left-color: var(--red); min-height: 300px;">
+<h3 style="color: var(--red);" class="anchored">
+<ol type="1">
+<li>Priority Areas
+</li></ol></h3>
+<h4 class="anchored">
+Focus on the 62 Complaint Gap Areas First
+</h4>
+
+<p><strong>Implementation:</strong> - Designate Complaint Gap areas as “priority maintenance zones” - Establish 48-hour repair target (vs.&nbsp;current reactive approach) - Allocate 30% of maintenance budget to these underserved areas</p>
+<p><strong>Rationale:</strong> These communities are systematically underserved by the 311 system. They need proactive attention, not reactive response.</p>
+<p><strong>Expected Impact:</strong> - Reduce lighting inequality by 40% within 2 years - Restore trust in government services - Improve safety in most vulnerable neighborhoods</p>
+</div>
+<div class="content-box" style="border-left-color: var(--blue); min-height: 300px;">
+<h3 style="color: var(--blue);" class="anchored">
+<ol start="2" type="1">
+<li>Satellite Monitoring
+</li></ol></h3>
+<h4 class="anchored">
+Use VIIRS Data to Supplement 311 System
+</h4>
+
+<p><strong>Implementation:</strong> - Monthly VIIRS downloads and analysis - Automated flagging of darkening areas - Integration with work order system</p>
+<p><strong>Rationale:</strong> Don’t rely solely on complaints. Satellite data reveals what the 311 system misses.</p>
+<p><strong>Expected Impact:</strong> - Identify problems before residents complain - Catch 65% more lighting issues - Enable predictive maintenance scheduling</p>
+</div>
+<div class="content-box" style="border-left-color: var(--green); min-height: 300px;">
+<h3 style="color: var(--green);" class="anchored">
+<ol start="3" type="1">
+<li>Equity Dashboard
+</li></ol></h3>
+<h4 class="anchored">
+Build Public Monitoring Dashboard
+</h4>
+
+<p><strong>Implementation:</strong> - Web-based dashboard tracking: - Lighting equity across neighborhoods - 311 complaint rates vs.&nbsp;actual darkness - Repair response times by area - LED upgrade progress and equity</p>
+<p><strong>Rationale:</strong> Transparency creates accountability. Public monitoring ensures equitable service delivery.</p>
+<p><strong>Expected Impact:</strong> - Increase public trust through transparency - Enable community advocacy with data - Hold city accountable to equity metrics</p>
+</div>
+<div class="content-box" style="border-left-color: var(--orange); min-height: 300px;">
+<h3 style="color: var(--orange);" class="anchored">
+<ol start="4" type="1">
+<li>Predictive Maintenance
+</li></ol></h3>
+<h4 class="anchored">
+Deploy Resources to 582 Predicted Areas
+</h4>
+
+<p><strong>Implementation:</strong> - Use Random Forest predictions to guide inspection schedules - Preventive maintenance in predicted darkening areas - Quarterly model updates with new VIIRS data</p>
+<p><strong>Rationale:</strong> Act before failure. 80% of Philadelphia already decliningâ€”intervene proactively.</p>
+<p><strong>Expected Impact:</strong> - Reduce infrastructure failures by 50% - Lower long-term maintenance costs - Prevent safety incidents in high-risk areas</p>
+</div>
+</div>
+<hr>
+<h2 id="implementation-roadmap" class="anchored">Implementation Roadmap</h2>
+<h3 id="phase-1-immediate-actions-months-1-3" class="anchored">Phase 1: Immediate Actions (Months 1-3)</h3>
+<div class="content-box">
+<p><strong>Launch Priority Area Program</strong> - Identify and map 62 Complaint Gap areas - Deploy rapid response teams - Establish 48-hour repair target</p>
+<p><strong>Set Up Data Infrastructure</strong> - Monthly VIIRS data downloads - Integrate with existing work order system - Train maintenance staff on new protocols</p>
+<p><strong>Budget:</strong> $500K initial investment <strong>Staff:</strong> 2 FTE data analysts, 5 FTE maintenance technicians</p>
+</div>
+<hr>
+<h3 id="phase-2-system-integration-months-4-9" class="anchored">Phase 2: System Integration (Months 4-9)</h3>
+<div class="content-box content-box-blue">
+<p><strong>Build Equity Dashboard</strong> - Design public-facing web interface - Integrate VIIRS, 311, maintenance data - Launch with community feedback sessions</p>
+<p><strong>Implement Predictive Maintenance</strong> - Deploy Random Forest model in production - Generate quarterly maintenance schedules - Monitor intervention effectiveness</p>
+<p><strong>Budget:</strong> $800K development and deployment <strong>Staff:</strong> 3 FTE developers, 1 FTE project manager</p>
+</div>
+<hr>
+<h3 id="phase-3-evaluation-expansion-months-10-24" class="anchored">Phase 3: Evaluation &amp; Expansion (Months 10-24)</h3>
+<div class="content-box content-box-green">
+<p><strong>Measure Impact</strong> - Compare pre/post lighting equity metrics - Survey residents in Complaint Gap areas - Assess safety outcomes (crime, accidents)</p>
+<p><strong>Refine &amp; Expand</strong> - Adjust priority criteria based on results - Expand satellite monitoring to detect LED failures - Share methodology with other cities</p>
+<p><strong>Budget:</strong> $300K evaluation and refinement <strong>Staff:</strong> 2 FTE evaluators, community engagement team</p>
+</div>
+<hr>
+<h2 id="budget-summary" class="anchored">Budget Summary</h2>
+<div style="background-color: var(--bg-medium); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 33%">
+<col style="width: 30%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Investment</th>
+<th>Timeline</th>
+<th>ROI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Phase 1: Priority Areas</strong></td>
+<td>$500K</td>
+<td>Months 1-3</td>
+<td>Immediate equity gains</td>
+</tr>
+<tr class="even">
+<td><strong>Phase 2: System Integration</strong></td>
+<td>$800K</td>
+<td>Months 4-9</td>
+<td>50% failure reduction</td>
+</tr>
+<tr class="odd">
+<td><strong>Phase 3: Evaluation</strong></td>
+<td>$300K</td>
+<td>Months 10-24</td>
+<td>Long-term cost savings</td>
+</tr>
+<tr class="even">
+<td><strong>Total 2-Year Program</strong></td>
+<td><strong>$1.6M</strong></td>
+<td>24 months</td>
+<td><strong>$4M+ savings</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<blockquote>
+<p><strong>None</strong></p>
+<div class="callout-title">
+Cost-Benefit Analysis
+</div>
+<p><strong>Investment:</strong> $1.6M over 2 years</p>
+<p><strong>Expected Savings:</strong> - $2M in prevented emergency repairs (50% failure reduction) - $1M in optimized maintenance scheduling - $1M+ in reduced crime/accident costs</p>
+<p><strong>Net Benefit:</strong> $2.4M+ over 2 years (150% ROI)</p>
+<p><strong>Non-Monetary Benefits:</strong> - Improved public safety in vulnerable areas - Restored community trust in government - Reduced health/economic impacts of darkness</p>
+</blockquote>
+</div>
+<hr>
+<h2 id="stakeholder-engagement" class="anchored">Stakeholder Engagement</h2>
+<h3 id="key-partners" class="anchored">Key Partners</h3>
+<div class="feature-grid">
+<div class="feature-item" style="border-top-color: var(--blue);">
+<h4 class="anchored">
+ðŸ›ï¸ City Agencies
+</h4>
+<p>
+<strong>Philadelphia Streets Department:</strong> Maintenance implementation
+</p>
+<p>
+<strong>Office of Innovation &amp; Technology:</strong> Dashboard development
+</p>
+<p>
+<strong>Police Department:</strong> Safety data integration
+</p>
+</div>
+<div class="feature-item" style="border-top-color: var(--green);">
+<h4 class="anchored">
+ Community Organizations
+</h4>
+<p>
+<strong>Neighborhood associations</strong> in 62 Gap areas
+</p>
+<p>
+<strong>Advocacy groups:</strong> Public participation and feedback
+</p>
+</div>
+<div class="feature-item" style="border-top-color: var(--orange);">
+<h4 class="anchored">
+ Academic Partners
+</h4>
+<p>
+<strong>University of Pennsylvania:</strong> Ongoing monitoring and evaluation
+</p>
+<p>
+<strong>Temple University:</strong> Community engagement research
+</p>
+</div>
+<div class="feature-item" style="border-top-color: var(--red);">
+<h4 class="anchored">
+ Funding Sources
+</h4>
+<p>
+<strong>Infrastructure Investment:</strong> Federal/state grants
+</p>
+<p>
+<strong>Foundation Support:</strong> Equity-focused funding
+</p>
+</div>
+</div>
+<hr>
+<h2 id="success-metrics" class="anchored">Success Metrics</h2>
+<h3 id="how-well-measure-impact" class="anchored">How We’ll Measure Impact</h3>
+<div class="content-box">
+<p><strong>Equity Metrics:</strong> - Gap area VIIRS brightness increase (target: +30%) - 311 complaint rate convergence (target: Â±20% of city average) - Income-lighting correlation reduction (target: -50%)</p>
+<p><strong>Operational Metrics:</strong> - Repair response time in Gap areas (target: &lt;48 hours) - Preventive interventions in predicted areas (target: 582 sites/year) - Infrastructure failure rate (target: -50%)</p>
+<p><strong>Community Metrics:</strong> - Resident satisfaction in Gap areas (target: +40%) - Perception of safety improvement (target: +35%) - 311 system awareness and access (target: +50%)</p>
+</div>
+<hr>
+<h2 id="policy-recommendations-summary" class="anchored">Policy Recommendations Summary</h2>
+<section id="the-urgent-case-for-action" style="background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--gold); margin: 2rem 0;">
+<h3 class="anchored">The Urgent Case for Action</h3>
+<p><strong>Model predicts 582 areas will darken. 80% of Philadelphia already declining. Act before failure.</strong></p>
+<p>Philadelphia’s streetlights date to the 1970s. Our 2022-2024 data captures the <strong>critical period before the $91M LED project</strong>â€”documenting peak infrastructure decline.</p>
+<p><strong>This research provides the roadmap to ensure the new LED system doesn’t perpetuate old inequities.</strong></p>
+</section>
+<hr>
+<h2 id="replicability" class="anchored">Replicability</h2>
+<div>
+<blockquote>
+<p><strong>None</strong></p>
+<div class="callout-title">
+A Model for Other Cities
+</div>
+<p>This methodology is <strong>fully replicable</strong> in other U.S. cities:</p>
+<p><strong>Required Data (all publicly available):</strong> - VIIRS satellite imagery (NASA, free) - 311 service requests (city open data) - Crime incidents (police open data) - Census demographics (ACS 5-year)</p>
+<p><strong>Required Tools (all open-source):</strong> - Python (pandas, geopandas, scikit-learn) - QGIS or ArcGIS - R/Quarto for reporting</p>
+<p><strong>Timeline:</strong> 3-6 months from data collection to policy recommendations</p>
+<p><strong>Cities ready to replicate:</strong> Chicago, Los Angeles, New York, Detroit, Baltimore</p>
+</blockquote>
+</div>
+<hr>
+<h2 id="call-to-action" class="anchored">Call to Action</h2>
+<div style="background-color: var(--red); color: white; padding: 3rem; border-radius: 12px; margin: 2rem 0; text-align: center;">
+<h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem;" class="anchored">
+Every Light Restored = Trust Restored
+</h2>
+<p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem;">
+This analysis reveals systemic lighting inequality in Philadelphia. Communities that need light the most are least likely to report problemsâ€”creating a gap that perpetuates inequity.
+</p>
+<p style="font-size: 1.5rem; font-weight: 600;">
+The data is clear. The solution is actionable. The time is now.
+</p>
+</div>
+<hr>
+<h2 id="next-steps-for-philadelphia" class="anchored">Next Steps for Philadelphia</h2>
+<ol type="1">
+<li><strong>Present findings</strong> to Philadelphia Streets Department and City Council</li>
+<li><strong>Secure funding</strong> for Phase 1 priority area program</li>
+<li><strong>Launch pilot</strong> in 5-10 Complaint Gap areas</li>
+<li><strong>Build dashboard</strong> prototype for public transparency</li>
+<li><strong>Establish</strong> ongoing monitoring partnership with academic institutions</li>
+</ol>
+<hr>
+<h2 id="contact-resources" class="anchored">Contact &amp; Resources</h2>
+<section id="project-team" class="content-box">
+<h3 class="anchored">Project Team</h3>
+<p><strong>Zicheng Xiang, Zhe Fang, Yanyang Chen</strong></p>
+<p>University of Pennsylvania<br>
+Master of Urban Spatial Analytics (MUSA)</p>
+<p><strong>Course:</strong> MUSA 5080 - Public Policy Analytics</p>
+<p><strong>Repository:</strong> [GitHub Project Link]</p>
+<p><strong>Dashboard:</strong> [Live Dashboard Link]</p>
+</section>
+<hr>
+<div style="background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-dark) 100%); padding: 2rem; border-radius: 8px; text-align: center; margin-top: 3rem;">
+<p style="font-size: 1.2rem; color: var(--gold); font-style: italic;">
+“Data should not only reveal darkness, but it should also help cities decide where to shine next.”
+</p>
+<p style="margin-top: 1.5rem; color: var(--text-light);">
+By transforming 311 maintenance data and satellite imagery into actionable insight, this project demonstrates how <strong>spatial data science can illuminate pathways to justice</strong>â€”one streetlight at a time.
+</p>
+</div>
+
+
+
+
+
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yourusername\.github\.io\/unequal-nights");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

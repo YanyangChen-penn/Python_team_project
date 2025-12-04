@@ -1,69 +1,84 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
 
 website:
-  title: "Unequal Nights"
+  title: "UNEQUAL NIGHTS"
+  site-url: "https://yourusername.github.io/unequal-nights"
+  description: "Philadelphia Lighting Equity Analysis - Shining Light on Infrastructure Inequality"
+  
   navbar:
-    background: primary
-    left:
+    background: "#1a2332"
+    foreground: "#FFA500"
+    title: "UNEQUAL NIGHTS"
+    search: false
+    pinned: true
+    
+    right:
       - text: "Home"
         href: index.qmd
-      - text: "Methodology"
-        href: methodology.qmd
-      - text: "Data & Analysis"
+        
+      - text: "Research"
+        href: research.qmd
+        
+      - text: "Data"
+        href: data.qmd
+        
+      - text: "Study Area"
+        href: study_area.qmd
+      
+      - text: "Analysis"
         href: analysis.qmd
-      - text: "Dashboard"
-        href: dashboard.qmd
-      - text: "Policy Brief"
+        
+      - text: "Findings"
+        href: findings.qmd
+        
+      - text: "Policy"
         href: policy.qmd
-      - text: "About Team"
-        href: team.qmd
-    right:
+      
       - icon: github
         href: https://github.com/yourusername/unequal-nights
-        
-  sidebar:
-    style: "docked"
-    background: light
-    contents:
-      - section: "Project Overview"
-        contents:
-          - index.qmd
-          - methodology.qmd
-      - section: "Analysis"
-        contents:
-          - analysis.qmd
-          - dashboard.qmd
-      - section: "Outcomes"
-        contents:
-          - policy.qmd
-          - team.qmd
+        aria-label: GitHub
 
   page-footer:
-    left: "© 2024 Unequal Nights Project Team"
-    right: 
-      - text: "University of Pennsylvania"
-      - text: "MUSA Program"
+    left: |
+      **UNEQUAL NIGHTS** © 2024 | Developed by Zicheng Xiang, Zhe Fang, Yanyang Chen
+    center: |
+      University of Pennsylvania | Master of Urban Spatial Analytics (MUSA) Program
+    right: |
+      *Data should not only reveal darkness, but it should also help cities decide where to shine next.*
 
 format:
   html:
-    theme: 
-      light: [cosmo, custom.scss]
-    css: styles.css
+    theme: none
+    css: custom.css
     toc: true
     toc-depth: 3
+    toc-location: left
     code-fold: true
     code-tools: true
-    code-copy: true
     smooth-scroll: true
     anchor-sections: true
-    fig-width: 8
-    fig-height: 6
-    fig-dpi: 300
+    
+    # Layout and Spacing
+    page-layout: full
+    
+    # Metadata and SEO
+    include-in-header:
+      - text: |
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta name="description" content="Philadelphia Lighting Equity Analysis - Spatial analysis of streetlight infrastructure inequality">
+          <meta name="keywords" content="GIS, urban equity, infrastructure, street lighting, spatial analysis, Philadelphia">
+          <meta name="author" content="Zicheng Xiang, Zhe Fang, Yanyang Chen">
+          <meta name="theme-color" content="#FFA500">
+
+jupyter: geoai
 
 execute:
   freeze: auto
-  cache: true
+  cache: false
   warning: false
   message: false
+  enabled: true

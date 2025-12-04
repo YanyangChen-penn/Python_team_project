@@ -1,308 +1,360 @@
 ---
-title: "Unequal Nights"
-subtitle: "Mapping Lighting Equity, Safety, and Urban Mobility in Philadelphia"
-author: "Zicheng Xiang, Zhe Fang, Yanyang Chen"
-date: today
-format: html
+format:
+  html:
+    toc: false
 execute:
   enabled: false
 ---
 
-![Philadelphia Nighttime Skyline](https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&h=400&fit=crop)
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
 
-## From Darkness to Decision {.unnumbered}
 
-> *"Data should not only reveal darkness, but it should also help cities decide where to shine next."*
 
-Philadelphia's nights are unevenly illuminated. Downtown shines brightly, while parts of North Philadelphia and Kensington remain in darkness for weeks after lights fail. This pattern reflects **spatiotemporal inequality** in infrastructure maintenance—where some neighborhoods get rapid repairs and others wait in the dark.
+## The Problem
 
----
+Philadelphia's nights are **unevenly illuminated**. Downtown shines brightly, while parts of North Philadelphia and Kensington remain in darkness for weeks after lights fail. This pattern reflects **systemic inequality** in infrastructure maintenance—where some neighborhoods get rapid repairs and others wait in the dark.
 
-# Urban Problem and Motivation
+<div class="feature-grid">
+<div class="feature-item">
+<div class="feature-icon">🎯</div>
+<h3>Objective Risk</h3>
+<p>Higher concentration of street crimes and traffic accidents in poorly lit areas</p>
+</div>
 
-The consequences of unequal lighting are threefold:
+<div class="feature-item">
+<div class="feature-icon">😟</div>
+<h3>Subjective Fear</h3>
+<p>Diminished sense of safety and comfort for residents</p>
+</div>
 
-::: {.callout-important icon=false}
-## Three Critical Impacts
-
-1. **Objective Risk**: Concentration of street crimes and traffic accidents
-2. **Subjective Fear**: Diminished sense of safety and comfort  
-3. **Social Inequity**: Low-income and minority areas face higher exposure to lighting poverty
-:::
-
-### Research Question
-
-::: {.callout-note icon=false}
-## Core Question
-**In what ways does urban lighting influence perceived and actual safety among people navigating Philadelphia at night?**
-:::
-
----
-
-# Research Goals
-
-Our project pursues four interconnected objectives:
-
-```{python}
-#| echo: false
-#| fig-cap: "Research Framework"
-import plotly.graph_objects as go
-
-fig = go.Figure(data=[go.Sankey(
-    node = dict(
-      pad = 15,
-      thickness = 20,
-      line = dict(color = "black", width = 0.5),
-      label = ["Lighting Equity", "Light-Safety Links", "Mobility Exposure", 
-               "Predictive Models", "Faster Repairs", "Fairer Distribution", 
-               "Safer Mobility", "Community Trust"],
-      color = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", 
-               "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]
-    ),
-    link = dict(
-      source = [0, 1, 2, 3, 0, 1, 2, 3],
-      target = [4, 5, 6, 7, 5, 6, 7, 4],
-      value = [1, 1, 1, 1, 1, 1, 1, 1]
-  ))])
-
-fig.update_layout(title_text="From Analysis to Impact", font_size=10, height=400)
-fig.show()
-```
-
-## Goal 1: Quantify Lighting Equity
-Measure streetlight outage density, repair delay, and socioeconomic correlates through our **Lighting Equity Index (LEI)**.
-
-## Goal 2: Reveal Light-Safety Mechanisms  
-Test links between lighting quality, crime rates, and perceived insecurity using spatial regression models.
-
-## Goal 3: Integrate Mobility Exposure
-Evaluate how night transit (SEPTA) and Indego bike networks intersect with lighting coverage via our **Night Transit Exposure Index (NTE)**.
-
-## Goal 4: Predict and Prioritize
-Use machine learning (Random Forest) to forecast future 'dark spots' and propose repair corridors.
+<div class="feature-item">
+<div class="feature-icon">⚖️</div>
+<h3>Social Inequity</h3>
+<p>Low-income and minority areas face higher exposure to lighting poverty</p>
+</div>
+</div>
 
 ---
 
-# Data Sources
+## Key Findings at a Glance
 
-Our analysis integrates seven data domains:
+<div class="feature-grid">
 
-```{python}
-#| echo: false
-#| label: tbl-data
-#| tbl-cap: "Comprehensive Data Integration"
+<div class="stat-card stat-card-red">
+<span class="stat-number">62</span>
+<span class="stat-label">Complaint Gap Areas</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Underserved neighborhoods identified</p>
+</div>
 
-import pandas as pd
+<div class="stat-card stat-card-blue">
+<span class="stat-number">582</span>
+<span class="stat-label">Areas Predicted to Darken</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Priority intervention zones</p>
+</div>
 
-data_dict = {
-    'Domain': [
-        'Streetlight Maintenance',
-        'Public Safety', 
-        'Mobility',
-        'Socio-Economic',
-        'Urban Form',
-        'Remote Sensing',
-        'Reference Cities'
-    ],
-    'Dataset': [
-        '311 Streetlight Out Reports',
-        'Philadelphia Crime Incidents',
-        'SEPTA GTFS, Indego Trips',
-        'ACS 5-Year Estimates',
-        'OSM Road Network, Land Use',
-        'VIIRS Nighttime Lights',
-        'Chicago, LA, Milan, Copenhagen'
-    ],
-    'Variables / Purpose': [
-        'Outage counts, repair duration',
-        'Nighttime crime density',
-        'Night service frequency, station density',
-        'Income, poverty, race, car ownership',
-        'Functional context, street geometry',
-        'Surface brightness proxy',
-        'Benchmark indicators and policy analogs'
-    ]
-}
+<div class="stat-card stat-card-orange">
+<span class="stat-number">80%</span>
+<span class="stat-label">Currently Darkening</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Of Philadelphia block groups</p>
+</div>
 
-df = pd.DataFrame(data_dict)
-print(df.to_markdown(index=False))
-```
+<div class="stat-card stat-card-green">
+<span class="stat-number">0.997</span>
+<span class="stat-label">Model R²</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Random Forest accuracy</p>
+</div>
 
-::: {.callout-tip}
-## Data Accessibility
-All datasets are publicly available through Philadelphia's OpenDataPhilly portal, US Census Bureau, and OpenStreetMap.
-:::
+</div>
 
 ---
 
-# Methodology Overview
+## Understanding the Complaint Gap
 
-Our workflow follows the complete data-science pipeline:
+<div class="content-box content-box-red">
 
-::: {.panel-tabset}
+### "Why do some areas remain dark, yet residents never complain?"
 
-## Phase 1: Diagnostics
-- Aggregate outages by street segment per quarter
-- Compute **Outage Density (OD)** and **Repair Delay (RD)**
-- Generate Darkness Evolution Maps
+Traditional maintenance relies on 311 complaints. But some communities face barriers to reporting: **language, time, distrust, or lack of awareness**. Satellite data reveals what complaints miss.
 
-## Phase 2: Equity Analysis
-- Standardize OD, RD, poverty, and vehicle ownership
-- Derive integrated **Lighting Equity Index (LEI)** via PCA
-- Identify lighting poverty hotspots
+This study uses **VIIRS satellite data** to objectively identify dark areas, bypassing the complaint system to find underserved communities directly.
 
-## Phase 3: Spatial Statistics
-- Moran's I and LISA for clustering detection
-- Spatial Lag and Error Models
-- Quantify crime ~ lighting relationship
+</div>
 
-## Phase 4: Perception Gap
-- Map objective crime vs subjective fear
-- Analyze 311 complaint patterns
-- Identify perception-reality mismatches
+### The Gap Formula
 
-## Phase 5: Mobility Integration
-- Compute nighttime SEPTA headways
-- Build 10-min walk buffers via OSMnx
-- Calculate **Night Transit Exposure Index (NTE)**
+<div style="text-align: center; padding: 2rem 0;">
 
-## Phase 6: Prediction
-- Random Forest on OD/RD, road density, zoning, season
-- Generate dark-zone risk probability maps
-- Rank priority corridors
+**Complaint Gap = LOW LIGHT + LOW 311 + LOW INCOME**
 
-## Phase 7: Visualization
-- Interactive Panel Dashboard
-- Temporal slider and narrative storytelling
-- Theme: "From Darkness to Decision"
+<div class="gap-formula-row">
 
-:::
+<div class="feature-item" style="border-top-color: var(--blue); background-color: #2c3e50;">
+<h3>LOW LIGHT</h3>
+<p style="color: var(--text-muted);">Objectively Dark</p>
+<div style="font-size: 3rem; margin: 1rem 0;">🌑</div>
+<p>Measured by VIIRS satellite radiance</p>
+</div>
 
----
+<div class="operator">+</div>
 
-# The LEIF Framework
+<div class="feature-item" style="border-top-color: var(--blue); background-color: #2c3e50;">
+<h3>LOW 311</h3>
+<p style="color: var(--text-muted);">Few Complaints</p>
+<div style="font-size: 3rem; margin: 1rem 0;">📉</div>
+<p>Below-average complaint rates</p>
+</div>
 
-Our **Lighting Equity Integrated Framework (LEIF)** connects five key stages:
+<div class="operator">+</div>
 
-```{mermaid}
-%%| fig-width: 8
-graph TB
-    A[DIAGNOSIS<br/>Spatial & Temporal Inequality] --> B[EXPLANATION<br/>Lighting-Crime-Perception Links]
-    B --> C[SIMULATION<br/>Lighting-Transit Interaction]
-    C --> D[PREDICTION<br/>Future Dark Zone Forecasts]
-    D --> E[ACTION & FEEDBACK<br/>Dashboard & Community Portal]
-    E --> A
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style C fill:#e8f5e9
-    style D fill:#fce4ec
-    style E fill:#f3e5f5
-```
+<div class="feature-item" style="border-top-color: var(--blue); background-color: #2c3e50;">
+<h3>LOW INCOME</h3>
+<p style="color: var(--text-muted);">Vulnerable Areas</p>
+<div style="font-size: 3rem; margin: 1rem 0;">💸</div>
+<p>Below-median household income</p>
+</div>
 
-This closed-loop system enables:
+<div class="operator">=</div>
 
-- **Transparent diagnosis** of current inequities
-- **Evidence-based explanation** of safety impacts  
-- **What-if simulation** of intervention scenarios
-- **Data-driven prediction** for proactive maintenance
-- **Participatory feedback** through public dashboards
+<div class="feature-item" style="border-top-color: var(--red); background-color: #FF6B6B;">
+<h3 style="color: white;">COMPLAINT GAP</h3>
+<p style="color: white; font-weight: bold;">Underserved Areas</p>
+<div style="font-size: 3rem; margin: 1rem 0;">⚠️</div>
+<p style="color: white;">Need proactive intervention</p>
+</div>
+
+</div>
 
 ---
 
-# Expected Deliverables
+## Project Scope
 
-::: {layout-ncol=2}
+<div class="feature-grid">
 
-### Data Products
-- Lighting Equity Index (LEI)
-- Night Transit Exposure Index (NTE)  
-- Fear-Crime Gap Index
-- Dark-Spot Probability Maps
+<div class="stat-card stat-card-green">
+<span class="stat-number">1,283</span>
+<span class="stat-label">Block Groups Analyzed</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">95.9% of Philadelphia</p>
+</div>
 
-### Analytical Models
-- Spatial Lag/Error Regressions
-- Random Forest Classifiers
-- Time-Series Outage Forecasts
-- Priority Corridor Rankings
+<div class="stat-card">
+<span class="stat-number">55</span>
+<span class="stat-label">Block Groups Excluded</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Non-residential areas</p>
+</div>
 
-:::
+<div class="stat-card stat-card-blue">
+<span class="stat-number">2022-2024</span>
+<span class="stat-label">Analysis Period</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Pre-LED upgrade baseline</p>
+</div>
 
-::: {layout-ncol=2}
+<div class="stat-card stat-card-orange">
+<span class="stat-number">52</span>
+<span class="stat-label">Safe Routes Analyzed</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Between major destinations</p>
+</div>
 
-### Visualizations
-- Interactive Panel Dashboard
-- Multi-page Quarto Website
-- Story Maps & Animations
-- Comparative City Benchmarks
-
-### Policy Outputs  
-- Lighting Equity Priority Plan
-- Maintenance Resource Allocation
-- Community Engagement Toolkit
-- Best Practice Recommendations
-
-:::
+</div>
 
 ---
 
-# Expected Impact
+## Data Sources & Methodology
 
-Our project aims to deliver measurable improvements across four dimensions:
+<div class="content-box">
 
-::: {.callout-success icon=false}
-## Transformation Goals
+### Comprehensive Multi-Source Analysis
 
-**Operational Efficiency**  
-Faster repairs and smarter allocation of maintenance resources
+| Data Source | Description | Purpose |
+|------------|-------------|---------|
+| **VIIRS Satellite** | Nighttime light radiance, 2022-2024 | Objective darkness measurement |
+| **311 Service Requests** | Street light outage complaints | Complaint patterns |
+| **Crime Data** | Incident locations for risk analysis | Safety correlation |
+| **Census Demographics** | Population, income, housing data | Equity analysis |
 
-**Distributional Justice**  
-Fairer distribution of lighting infrastructure across neighborhoods
+</div>
 
-**Public Safety**  
-Safer nighttime mobility along key transit corridors
+### Analysis Tools
 
-**Civic Engagement**  
-Strengthened community trust through transparent dashboards
-:::
+<div class="feature-grid">
 
----
+<div class="feature-item">
+<h4>🗺️ GIS Tools</h4>
+<p>Reclassify, Raster Calculator, Focal Statistics, Zonal Statistics, Distance Accumulation</p>
+</div>
 
-# Why This Matters
+<div class="feature-item">
+<h4>🐍 Python</h4>
+<p>pandas, geopandas, scikit-learn (Random Forest), NetworkX, OSMnx</p>
+</div>
 
-Every streetlight outage represents more than a technical failure—it reflects a gap in the urban social contract. When repairs take weeks in some neighborhoods and days in others, we're not just seeing infrastructure inequality; we're witnessing the compounding of disadvantage.
-
-::: {.callout-warning icon=false}
-## The Equity Imperative
-Low-income communities already face higher crime rates, limited transit options, and fewer private vehicles. Prolonged darkness adds another layer of vulnerability, constraining mobility, economic opportunity, and quality of life.
-:::
-
-By transforming 311 maintenance data into actionable insight, we demonstrate how **spatial data science can illuminate pathways to justice**—one streetlight at a time.
+</div>
 
 ---
 
-## Navigate This Site
+## Major Findings
 
-Use the navigation bar above to explore:
+<div class="content-box content-box-red">
 
-- **Methodology**: Detailed technical approach and analytical pipeline
-- **Data & Analysis**: Interactive maps, statistics, and findings  
-- **Dashboard**: Real-time monitoring and exploration tools
-- **Policy Brief**: Recommendations and implementation roadmap
-- **About Team**: Meet the researchers and collaborators
+### 62 Underserved Areas Where Darkness, Low Complaints, and Low Income Converge
+
+**The Paradox:** The darkest areas file **76% fewer complaints** than city average
+
+**The Pattern:** These are also the **lowest-income neighborhoods** ($42,800 vs. $67,200 average)
+
+**The Implication:** The 311 system systematically misses the communities that need help most
+
+</div>
+
+### Finding 2: Citywide Decline
+
+<div class="content-box content-box-orange">
+
+**Philadelphia lighting is declining citywide.**
+
+Model predicts 582 block groups will experience continued brightness decline
+
+Current status: 80% of Philadelphia block groups showed decreasing light levels from 2022-2024
+
+**Priority intervention needed before infrastructure failure.**
+
+</div>
+
+### Finding 3: Safer Routes Exist
+
+<div class="content-box content-box-green">
+
+**Small Distance Penalty = Large Safety Gain**
+
+52 routes analyzed between key Philadelphia locations
+
+**Trade-off Discovered:**
+- **+1-3% longer distance**
+- **= Up to 20% safer** (lower risk exposure)
+
+**Most Effective:** Chinatown route shows greatest risk reduction
+
+</div>
 
 ---
 
-::: {.callout-note icon=false}
-## Project Timeline
+## Policy Recommendations: From Reactive to Proactive
 
-**Phase 1 (Weeks 1-3)**: Data collection and preprocessing  
-**Phase 2 (Weeks 4-6)**: Spatial analysis and modeling  
-**Phase 3 (Weeks 7-9)**: Visualization and dashboard development  
-**Phase 4 (Weeks 10-12)**: Policy brief and presentation preparation
+<div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-light) 100%); border-radius: 12px; margin: 2rem 0;">
 
-:::
+<div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
+
+<div style="flex: 1; min-width: 200px;">
+<h3 style="color: var(--red); font-size: 1.5rem;">❌ REACTIVE</h3>
+<p style="color: var(--text-light);">Wait for complaints</p>
+<p style="color: var(--text-muted); font-size: 0.9rem;">Traditional 311 System</p>
+</div>
+
+<div style="font-size: 2rem; color: var(--gold);">→</div>
+
+<div style="flex: 1; min-width: 200px;">
+<h3 style="color: var(--green); font-size: 1.5rem;">✅ PROACTIVE</h3>
+<p style="color: var(--text-light);">Satellite-driven</p>
+<p style="color: var(--text-muted); font-size: 0.9rem;">Data-Informed Equity</p>
+</div>
+
+</div>
+
+</div>
+
+### Four Policy Pillars
+
+<div class="feature-grid">
+
+<div class="content-box" style="border-left-color: var(--red);">
+<h3 style="color: var(--red);">1. Priority Areas</h3>
+<p>Focus maintenance on the <strong>62 Complaint Gap areas</strong> first—these communities are underserved</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--blue);">
+<h3 style="color: var(--blue);">2. Satellite Monitoring</h3>
+<p>Use VIIRS data to <strong>supplement 311 system</strong>—don't rely solely on complaints</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--green);">
+<h3 style="color: var(--green);">3. Equity Dashboard</h3>
+<p>Build a <strong>monitoring dashboard</strong> tracking lighting equity across neighborhoods</p>
+</div>
+
+<div class="content-box" style="border-left-color: var(--orange);">
+<h3 style="color: var(--orange);">4. Predictive Maintenance</h3>
+<p>Deploy resources to <strong>582 predicted darkening areas</strong> before they fail</p>
+</div>
+
+</div>
 
 ---
 
-*This project is conducted as part of the Master of Urban Spatial Analytics program at the University of Pennsylvania.*
+## Why This Research Matters
+
+<div class="callout callout-success">
+<div class="callout-title">Critical Context</div>
+
+Philadelphia's streetlights date back to the **1970s**. Our 2022-2024 data captures the critical period before the **$91M LED upgrade project** (launched August 2023)—documenting peak infrastructure decline.
+
+This analysis establishes the baseline for **proactive lighting equity monitoring**.
+</div>
+
+<div style="background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--gold); margin: 2rem 0;">
+
+<p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-light); font-style: italic;">
+Every streetlight outage represents more than a technical failure—it reflects a gap in the urban social contract.
+</p>
+
+<p style="font-size: 1rem; line-height: 1.7; color: var(--text-light); margin-top: 1.5rem;">
+When repairs take weeks in some neighborhoods and days in others, we're witnessing the compounding of disadvantage. Low-income communities already face higher crime rates, limited transit options, and fewer private vehicles. Prolonged darkness adds another layer of vulnerability.
+</p>
+
+<p style="font-size: 1.1rem; line-height: 1.8; color: var(--gold); margin-top: 2rem; font-weight: 600;">
+Each light restored is not just an infrastructure fix—it represents restored public trust.
+</p>
+
+</div>
+
+---
+
+## Navigate the Full Analysis
+
+Continue your exploration:
+
+- **[Research Question](research.html)** – Deep dive into the Complaint Gap concept
+- **[Data & Methodology](data.html)** – Technical approach and data sources
+- **[Study Area](study_area.html)** – Geographic scope and exclusions
+- **[Analysis](analysis.html)** – Reclassification, cost surfaces, and spatial analysis
+- **[Findings](findings.html)** – Complete findings and conclusions
+
+---
+
+<div class="callout">
+<div class="callout-title">About This Project</div>
+
+**Team Members**: Zicheng Xiang, Zhe Fang, Yanyang Chen
+
+**Institution**: University of Pennsylvania, Master of Urban Spatial Analytics (MUSA)
+
+**Course**: MUSA 5080 - Public Policy Analytics
+
+*Data should not only reveal darkness, but it should also help cities decide where to shine next.*
+
+</div>

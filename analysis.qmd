@@ -1,0 +1,635 @@
+---
+format:
+  html:
+    toc: false
+execute:
+  enabled: true
+---
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+---
+
+## Reclassification & Cost Surface
+
+### Four Reclassified Layers
+
+<div class="content-box">
+
+**Methodology:** Each variable was reclassified to a standardized 1-5 scale using natural breaks classification, enabling direct comparison across different metrics.
+
+**Python Integration:** VIIRS, 311, Crime, and Census data were first integrated into `philly_integrated_data.shp` using geopandas
+
+**ArcGIS Processing:** Reclassify tool applied to each variable â†’ Raster Calculator combined layers
+
+</div>
+
+---
+
+### Layer 1: Darkness (VIIRS Inverted)
+
+```{python}
+#| echo: false
+import geopandas as gpd
+import folium
+from folium import plugins
+import json
+
+# Load darkness layer
+darkness = gpd.read_file('geojson/dark/Layer1_Darkness.geojson')
+
+# Create map centered on Philadelphia
+m1 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+# Add darkness layer
+folium.Choropleth(
+    geo_data=darkness.to_json(),
+    data=darkness,
+    columns=['GEOID', 'dark_score'],
+    key_on='feature.properties.GEOID',
+    fill_color='YlOrRd',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Darkness Score (0-1)',
+    name='Darkness'
+).add_to(m1)
+
+# Add layer control
+folium.LayerControl().add_to(m1)
+
+# Display map
+m1
+```
+
+<div class="content-box content-box-blue">
+**Darkness Score:** Higher values = darker areas (inverted VIIRS radiance)
+
+**Range:** 0.000000 - 1.000000 reclassified to 1-5 scale
+
+**Pattern:** Center City shows lowest darkness scores; North and Southwest Philadelphia show highest
+</div>
+
+---
+
+### Layer 2: Low 311 Reporting
+
+```{python}
+#| echo: false
+# Load low reporting layer
+low_311 = gpd.read_file('geojson/311/Layer2_LowReporting.geojson')
+
+m2 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+folium.Choropleth(
+    geo_data=low_311.to_json(),
+    data=low_311,
+    columns=['GEOID', 'low_report'],
+    key_on='feature.properties.GEOID',
+    fill_color='Blues',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Low Reporting Score (0-1)',
+    name='Low 311'
+).add_to(m2)
+
+folium.LayerControl().add_to(m2)
+m2
+```
+
+<div class="content-box content-box-blue">
+**Low Reporting Score:** Higher values = fewer complaints filed
+
+**Range:** 0.000000 - 1.000000 reclassified to 1-5 scale
+
+**Insight:** Areas with high darkness but low complaints indicate reporting gaps
+</div>
+
+---
+
+### Layer 3: Low Income / Vulnerability
+
+```{python}
+#| echo: false
+# Load vulnerability layer
+vulnerability = gpd.read_file('geojson/lowincome/Layer3_Vulnerability.geojson')
+
+m3 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+folium.Choropleth(
+    geo_data=vulnerability.to_json(),
+    data=vulnerability,
+    columns=['GEOID', 'low_income'],
+    key_on='feature.properties.GEOID',
+    fill_color='Greens',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Vulnerability Score (0-1)',
+    name='Low Income'
+).add_to(m3)
+
+folium.LayerControl().add_to(m3)
+m3
+```
+
+<div class="content-box content-box-green">
+**Vulnerability Score:** Based on below-median household income
+
+**Range:** 0.000000 - 1.000000 reclassified to 1-5 scale
+
+**Pattern:** North Philadelphia and Southwest show highest vulnerability
+</div>
+
+---
+
+### Layer 4: Crime Risk
+
+```{python}
+#| echo: false
+# Load crime layer
+crime = gpd.read_file('geojson/crime/Layer4_Crime.geojson')
+
+m4 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+folium.Choropleth(
+    geo_data=crime.to_json(),
+    data=crime,
+    columns=['GEOID', 'high_crime'],
+    key_on='feature.properties.GEOID',
+    fill_color='Reds',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Crime Risk Score (0-1)',
+    name='Crime'
+).add_to(m4)
+
+folium.LayerControl().add_to(m4)
+m4
+```
+
+<div class="content-box content-box-red">
+**Crime Score:** Nighttime incident density (7pm-6am)
+
+**Range:** 0.000000 - 1.000000 reclassified to 1-5 scale
+
+**Correlation:** High crime areas often overlap with low lighting zones
+</div>
+
+---
+
+## Weighted Cost Surface
+
+### Layer 5: Integrated Risk Surface
+
+```{python}
+#| echo: false
+# Load cost surface
+cost_surface = gpd.read_file('geojson/costsurface/Layer5_CostSurface.geojson')
+
+m5 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+folium.Choropleth(
+    geo_data=cost_surface.to_json(),
+    data=cost_surface,
+    columns=['GEOID', 'risk_score'],
+    key_on='feature.properties.GEOID',
+    fill_color='RdYlBu_r',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Weighted Risk Score',
+    name='Cost Surface'
+).add_to(m5)
+
+folium.LayerControl().add_to(m5)
+m5
+```
+
+<div class="content-box">
+
+### Cost Surface Formula
+
+**Raster Calculator:**
+
+```
+CostSurf_Risk = 
+    0.30 × Darkness +
+    0.30 × Crime +
+    0.20 × Low311 +
+    0.20 × LowIncome
+```
+
+**Interpretation:** Brighter colors = higher risk scores = priority intervention areas
+
+**Pattern:** Risk concentrates in North Philadelphia, Kensington, and Southwest corridors
+
+</div>
+
+---
+
+## Neighborhood Analysis: VIIRS Focal Mean
+
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import LinearSegmentedColormap
+
+# Create visualization note since we have the darkness layer
+fig, ax = plt.subplots(1, 2, figsize=(14, 6), facecolor='#1a2332')
+
+# Plot 1: Zonal Statistics concept
+ax[0].set_facecolor('#1a2332')
+ax[0].text(0.5, 0.7, 'Zonal Statistics', ha='center', fontsize=20, 
+           color='#FFA500', weight='bold')
+ax[0].text(0.5, 0.5, 'Calculated mean VIIRS radiance\nwithin each block group boundary', 
+           ha='center', fontsize=12, color='#ecf0f1', style='italic')
+ax[0].text(0.5, 0.3, 'Aggregates satellite pixels\nto census geography', 
+           ha='center', fontsize=11, color='#95a5a6')
+ax[0].axis('off')
+
+# Plot 2: Focal Statistics concept  
+ax[1].set_facecolor('#1a2332')
+ax[1].text(0.5, 0.7, 'Focal Statistics', ha='center', fontsize=20, 
+           color='#FFA500', weight='bold')
+ax[1].text(0.5, 0.5, 'Smoothed brightness using\ncircular neighborhood window', 
+           ha='center', fontsize=12, color='#ecf0f1', style='italic')
+ax[1].text(0.5, 0.3, 'Reveals spatial patterns:\nCenter City brightest,\nperipheral areas darker', 
+           ha='center', fontsize=11, color='#95a5a6')
+ax[1].axis('off')
+
+plt.tight_layout()
+plt.savefig('neighborhood_analysis.png', dpi=300, bbox_inches='tight', 
+            facecolor='#1a2332', edgecolor='none')
+plt.show()
+```
+
+<div class="callout">
+<div class="callout-title">Key Finding</div>
+
+**Center City is brightest; peripheral neighborhoods show significantly lower lighting levels**
+
+Focal Statistics smoothed VIIRS radiance using circular neighborhood. This revealed that downtown concentration of brightness creates stark inequality with surrounding residential areas.
+
+</div>
+
+---
+
+## Complaint Gap Areas
+
+### 62 Underserved Neighborhoods Identified
+
+```{python}
+#| echo: false
+# Load complaint gap areas
+complaint_gap = gpd.read_file('geojson/complaintgap/complaint_gap_areas.geojson')
+philly_boundary = gpd.read_file('geojson/phillyarea/phillyarea.geojson')
+
+m6 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+# Add Philadelphia boundary
+folium.GeoJson(
+    philly_boundary.to_json(),
+    style_function=lambda x: {
+        'fillColor': 'transparent',
+        'color': '#95a5a6',
+        'weight': 2,
+        'fillOpacity': 0
+    },
+    name='Philadelphia Boundary'
+).add_to(m6)
+
+# Add complaint gap areas in red
+folium.GeoJson(
+    complaint_gap.to_json(),
+    style_function=lambda x: {
+        'fillColor': '#FF6B6B',
+        'color': '#FF6B6B',
+        'weight': 2,
+        'fillOpacity': 0.7
+    },
+    popup=folium.GeoJsonPopup(fields=['GEOID', 'median_inc', 'viirs_mean', 'streetli_5'],
+                                aliases=['Block Group', 'Median Income', 'VIIRS Brightness', 'Complaints/km²']),
+    name='Complaint Gap Areas'
+).add_to(m6)
+
+folium.LayerControl().add_to(m6)
+m6
+```
+
+<div class="feature-grid">
+
+<div class="stat-card stat-card-red">
+<span class="stat-number">62</span>
+<span class="stat-label">Gap Areas Identified</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Where darkness, low complaints, and low income overlap</p>
+</div>
+
+<div class="stat-card">
+<span class="stat-number">$42,800</span>
+<span class="stat-label">Average Income</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">38% below city average</p>
+</div>
+
+<div class="stat-card">
+<span class="stat-number">0.31</span>
+<span class="stat-label">Average VIIRS</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">65% darker than average</p>
+</div>
+
+<div class="stat-card">
+<span class="stat-number">2.1</span>
+<span class="stat-label">Complaints/kmÂ²</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">76% fewer than average</p>
+</div>
+
+</div>
+
+### Gap Area Characteristics
+
+<div class="content-box content-box-red">
+
+**Three criteria overlap:**
+1. **Low brightness** (VIIRS below threshold)
+2. **Low complaints** (311 below city average)
+3. **Low income** (Census below median)
+
+**Identified with:** Python spatial analysis using `geopandas` on Zonal_VIIRS_Mean output
+
+**Critical Pattern:** The darkest areas file 76% fewer complaints. These are also the lowest-income neighborhoods. **This means the 311 system systematically misses the communities that need help most.**
+
+</div>
+
+---
+
+## Predictive Modeling: Darkening Trends
+
+### 582 Block Groups Predicted to Continue Darkening
+
+```{python}
+#| echo: false
+# Load darkening trend areas
+darkening = gpd.read_file('geojson/darkinging_trend_areas/darkening_trend_areas.geojson')
+
+m7 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+# Add darkening areas
+folium.GeoJson(
+    darkening.to_json(),
+    style_function=lambda x: {
+        'fillColor': '#8B4545',
+        'color': '#8B4545',
+        'weight': 1,
+        'fillOpacity': 0.6
+    },
+    name='Predicted Darkening Areas'
+).add_to(m7)
+
+folium.LayerControl().add_to(m7)
+m7
+```
+
+<div class="feature-grid">
+
+<div class="stat-card stat-card-blue">
+<span class="stat-number">582</span>
+<span class="stat-label">Areas Predicted to Darken</span>
+</div>
+
+<div class="stat-card stat-card-orange">
+<span class="stat-number">80%</span>
+<span class="stat-label">Currently Darkening</span>
+<p style="margin-top: 1rem;">Of Philadelphia block groups showed decreasing light 2022-2024</p>
+</div>
+
+<div class="stat-card stat-card-blue">
+<span class="stat-number">R² = 0.997</span>
+<span class="stat-label">Model Performance</span>
+<p style="margin-top: 1rem;">Random Forest Regressor</p>
+</div>
+
+</div>
+
+### Model Configuration
+
+<div class="content-box content-box-blue">
+
+**Algorithm:** Random Forest Regressor (scikit-learn)
+
+**Hyperparameter Tuning:** GridSearchCV for optimal parameters
+
+**Top Predictive Features:**
+- Historical brightness trend (-0.035 per year average)
+- Current VIIRS level
+- 311 complaint density
+- Income & population
+
+**Validation:** Cross-validation R² = 0.997
+
+</div>
+
+<div class="callout callout-danger">
+<div class="callout-title">Urgent Finding</div>
+
+**Philadelphia lighting is declining citywide.** 
+
+Model predicts 582 areas will continue to darken. 80% of Philadelphia already showing decline. **Priority intervention needed before infrastructure failure.**
+
+Streetlights date to the 1970s. Our 2022-2024 data captures the critical transition before the city's $91M LED replacement project (launched Aug 2023).
+
+</div>
+
+---
+
+## Safe Path Analysis
+
+### Network-Based Routing with Risk Weighting
+
+```{python}
+#| echo: false
+# Load safe paths and route locations
+safe_paths = gpd.read_file('geojson/safepath/safepath.geojson')
+route_locations = gpd.read_file('geojson/routelocation/route_location.geojson')
+
+m8 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=12,
+    tiles='CartoDB dark_matter'
+)
+
+# Add route locations (origins/destinations)
+for idx, row in route_locations.iterrows():
+    folium.Marker(
+        location=[row.geometry.y, row.geometry.x],
+        popup=row['location_name'] if 'location_name' in row else f"Location {idx}",
+        icon=folium.Icon(color='green', icon='info-sign')
+    ).add_to(m8)
+
+# Add safe paths
+folium.GeoJson(
+    safe_paths.to_json(),
+    style_function=lambda x: {
+        'color': '#2ECC71',
+        'weight': 3,
+        'opacity': 0.8
+    },
+    name='Safer Routes'
+).add_to(m8)
+
+folium.LayerControl().add_to(m8)
+m8
+```
+
+### Route Analysis Results
+
+<div class="content-box content-box-green">
+
+**52 routes analyzed** between key Philadelphia locations:
+- City Hall
+- Temple University  
+- 30th Street Station
+- University City
+- Chinatown
+- Major transit hubs
+
+**Methods:**
+- **ArcGIS:** Distance Accumulation + Optimal Path
+- **Python:** OSMnx + NetworkX for street-level routing with risk-weighted edges
+
+</div>
+
+<div class="stat-card stat-card-green" style="max-width: 500px; margin: 2rem auto;">
+<div style="font-size: 1.5rem; color: var(--green); margin-bottom: 1rem;">TRADE-OFF</div>
+<span class="stat-number">+1-3%</span>
+<span class="stat-label">Distance Increase</span>
+<div style="font-size: 2rem; margin: 1rem 0;">=</div>
+<span class="stat-number">Up to 20%</span>
+<span class="stat-label">Safer Routes</span>
+</div>
+
+<div class="callout callout-success">
+<div class="callout-title">Key Finding</div>
+
+**Chinatown route shows greatest risk reduction**
+
+By accepting a small distance penalty (1-3% longer), travelers can reduce their exposure to high-risk areas by up to 20%.
+
+</div>
+
+---
+
+## Priority Areas for Intervention
+
+```{python}
+#| echo: false
+# Load priority areas
+priority = gpd.read_file('geojson/priority/priority_areas.geojson')
+
+m9 = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=11,
+    tiles='CartoDB dark_matter'
+)
+
+# Add priority areas with graduated colors
+folium.Choropleth(
+    geo_data=priority.to_json(),
+    data=priority,
+    columns=['GEOID', 'priority'],
+    key_on='feature.properties.GEOID',
+    fill_color='OrRd',
+    fill_opacity=0.7,
+    line_opacity=0.3,
+    legend_name='Priority Score',
+    name='Priority Areas'
+).add_to(m9)
+
+folium.LayerControl().add_to(m9)
+m9
+```
+
+<div class="content-box">
+
+### Priority Scoring Methodology
+
+Priority areas were identified by combining:
+1. **Complaint Gap status** (weight: 40%)
+2. **Predicted darkening** (weight: 30%)
+3. **Current risk score** (weight: 20%)
+4. **Population density** (weight: 10%)
+
+**Result:** Ranked list of neighborhoods requiring immediate intervention
+
+</div>
+
+---
+
+## Technical Implementation Notes
+
+<div class="callout">
+<div class="callout-title">Workflow Summary</div>
+
+1. **Python (geopandas):** Integrated VIIRS, 311, Crime, Census `philly_integrated_data.shp`
+
+2. **ArcGIS Reclassify:** Standardized each variable to 1-5 scale
+
+3. **ArcGIS Raster Calculator:** Combined layers `CostSurf_Risk`
+
+4. **ArcGIS Spatial Analysis:** Zonal Statistics + Focal Statistics
+
+5. **Python Analysis:** Identified Complaint Gap areas using spatial overlay
+
+6. **scikit-learn:** Trained Random Forest for darkening prediction
+
+7. **OSMnx + NetworkX:** Generated risk-weighted safe routes
+
+</div>
+
+---
+
+## Next Steps
+
+Continue to [Findings](findings.qmd) to see policy recommendations and conclusions.

@@ -1,0 +1,312 @@
+---
+format:
+  html:
+    toc: false
+execute:
+  enabled: false
+---
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="navbar-brand">UNEQUAL NIGHTS</span>
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+    <li class="nav-item"><a class="nav-link" href="data.html">Data</a></li>
+    <li class="nav-item"><a class="nav-link" href="study_area.html">Study Area</a></li>
+    <li class="nav-item"><a class="nav-link" href="analysis.html">Analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="findings.html">Findings</a></li>
+    <li class="nav-item"><a class="nav-link" href="policy.html">Policy</a></li>
+    <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+---
+
+## Geographic Scope
+
+### Philadelphia Residential Areas
+
+```{python}
+#| echo: false
+import geopandas as gpd
+import folium
+from folium import plugins
+
+# Load Philadelphia boundary and land use
+philly_boundary = gpd.read_file('geojson/phillyarea/phillyarea.geojson')
+land_use = gpd.read_file('geojson/landuse/Land_Use_converted.geojson')
+
+# Create map
+m = folium.Map(
+    location=[39.9526, -75.1652],
+    zoom_start=10,
+    tiles='CartoDB dark_matter'
+)
+
+# Define colors for different land uses
+land_use_colors = {
+    'Residential': '#4A90E2',
+    'Commercial': '#F39C12',
+    'Industrial': '#95a5a6',
+    'Park/Open Space': '#2ECC71',
+    'Airport': '#e74c3c',
+    'Water': '#3498db',
+    'Institutional': '#9b59b6',
+    'Transportation': '#34495e'
+}
+
+# Add land use layer
+for land_type, color in land_use_colors.items():
+    land_use_subset = land_use[land_use['Land_Use'] == land_type] if 'Land_Use' in land_use.columns else land_use
+    
+    if not land_use_subset.empty:
+        folium.GeoJson(
+            land_use_subset.to_json(),
+            style_function=lambda x, color=color: {
+                'fillColor': color,
+                'color': color,
+                'weight': 1,
+                'fillOpacity': 0.6
+            },
+            name=land_type
+        ).add_to(m)
+
+# Add Philadelphia boundary
+folium.GeoJson(
+    philly_boundary.to_json(),
+    style_function=lambda x: {
+        'fillColor': 'transparent',
+        'color': '#FFA500',
+        'weight': 3,
+        'fillOpacity': 0
+    },
+    name='Philadelphia Boundary'
+).add_to(m)
+
+# Add layer control
+folium.LayerControl().add_to(m)
+
+m
+```
+
+---
+
+## Study Area Statistics
+
+<div class="feature-grid">
+
+<div class="stat-card stat-card-green">
+<span class="stat-number">1,283</span>
+<span class="stat-label">Block Groups Analyzed</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">95.9% of Philadelphia</p>
+</div>
+
+<div class="stat-card">
+<span class="stat-number">55</span>
+<span class="stat-label">Block Groups Excluded</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Non-residential areas</p>
+</div>
+
+<div class="stat-card stat-card-blue">
+<span class="stat-number">64.34</span>
+<span class="stat-label">kmÂ² Excluded Area</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Airports, parks, industrial</p>
+</div>
+
+</div>
+
+---
+
+## Selection Methodology
+
+<div class="content-box">
+
+### Land Use Classification Approach
+
+Study area selection using **land use classification** to ensure comparability:
+
+1. **1,283 residential block groups** were included for analysis
+2. **55 non-residential blocks** were excluded due to unique lighting requirements not comparable to typical neighborhoods
+
+**Rationale:** Non-residential areas (airports, large parks, industrial zones) have fundamentally different lighting needs and patterns that would skew residential equity analysis.
+
+</div>
+
+---
+
+## Excluded Areas Breakdown
+
+### 55 Non-Residential Block Groups
+
+<div class="feature-grid">
+
+<div class="feature-item" style="border-top-color: var(--orange);">
+<h3>20 Areas</h3>
+<h4>Other Non-Residential</h4>
+<p style="color: var(--text-muted);">36.4% of exclusions</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--green);">
+<h3>18 Areas</h3>
+<h4>Park/Open Space</h4>
+<p style="color: var(--text-muted);">32.7% of exclusions</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--blue);">
+<h3>7 Areas</h3>
+<h4>Industrial/Port</h4>
+<p style="color: var(--text-muted);">12.7% of exclusions</p>
+</div>
+
+<div class="feature-item" style="border-top-color: var(--red);">
+<h3>6 Areas</h3>
+<h4>Airport</h4>
+<p style="color: var(--text-muted);">10.9% of exclusions</p>
+</div>
+
+<div class="feature-item">
+<h3>3 Areas</h3>
+<h4>Institutional</h4>
+<p style="color: var(--text-muted);">5.5% of exclusions</p>
+</div>
+
+<div class="feature-item">
+<h3>1 Area</h3>
+<h4>Water/Special Area</h4>
+<p style="color: var(--text-muted);">1.8% of exclusions</p>
+</div>
+
+</div>
+
+### Summary Table
+
+<div style="background-color: var(--bg-medium); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+
+| Category | Count | Percentage | Total Area (kmÂ²) |
+|----------|-------|------------|------------------|
+| **Other Non-Residential** | 20 | 36.4% | 23.4 |
+| **Park/Open Space** | 18 | 32.7% | 18.7 |
+| **Industrial/Port** | 7 | 12.7% | 12.2 |
+| **Airport** | 6 | 10.9% | 7.0 |
+| **Institutional** | 3 | 5.5% | 2.5 |
+| **Water/Special Area** | 1 | 1.8% | 0.54 |
+| **Total Excluded** | **55** | **100%** | **64.34** |
+
+</div>
+
+---
+
+## Rationale for Exclusions
+
+<div class="callout">
+<div class="callout-title">Why These Areas Were Excluded</div>
+
+### Non-Comparable Lighting Requirements
+
+Different land uses have fundamentally different lighting needs:
+
+- **Airports:** FAA-regulated aviation lighting, not residential street lighting
+- **Parks:** Intentionally darker for ecological reasons; different safety standards
+- **Industrial/Port:** 24/7 operational lighting unrelated to residential equity
+- **Institutional:** Universities, hospitals have independent lighting systems
+- **Water Bodies:** No residential lighting needed
+
+**Including these areas would distort equity analysis** by comparing residential neighborhoods to areas with incomparable lighting purposes.
+
+</div>
+
+---
+
+## Study Period
+
+<div class="content-box content-box-blue">
+
+### 2022-2024: Critical Infrastructure Transition
+
+**Time Frame:** January 2022 - October 2024
+
+**Significance:** This period captures the **final years of 1970s-era lighting infrastructure** before Philadelphia's $91M LED replacement project launched in August 2023.
+
+**Why This Matters:**
+- Documents **peak infrastructure decline**
+- Establishes **pre-upgrade baseline** for equity analysis
+- Captures **worst-case scenario** of aging streetlight inequality
+- Provides evidence for **proactive monitoring** in future LED maintenance
+
+</div>
+
+---
+
+## Data Coverage
+
+### Complete Residential Coverage
+
+<div class="feature-grid">
+
+<div class="stat-card">
+<span class="stat-number">95.9%</span>
+<span class="stat-label">Geographic Coverage</span>
+<p style="margin-top: 1rem;">Of Philadelphia's total area</p>
+</div>
+
+<div class="stat-card stat-card-green">
+<span class="stat-number">100%</span>
+<span class="stat-label">Residential Coverage</span>
+<p style="margin-top: 1rem;">All residential block groups included</p>
+</div>
+
+<div class="stat-card stat-card-blue">
+<span class="stat-number">1,283</span>
+<span class="stat-label">Analysis Units</span>
+<p style="margin-top: 1rem;">Block group resolution</p>
+</div>
+
+</div>
+
+---
+
+## Spatial Resolution
+
+<div class="content-box">
+
+### Block Group Level Analysis
+
+**Geographic Unit:** U.S. Census Block Groups
+
+**Why Block Groups?**
+- Fine enough resolution to detect neighborhood-level inequality
+- Coarse enough to protect individual privacy
+- Aligns with Census demographic data
+- Standard unit for urban planning analysis
+
+**Population Range:** Typically 600-3,000 residents per block group
+
+**Area Range:** 0.1-2.0 kmÂ² per block group in Philadelphia
+
+</div>
+
+---
+
+## Boundary Considerations
+
+<div class="callout callout-warning">
+<div class="callout-title">Edge Effects</div>
+
+Block groups at Philadelphia's boundary were included if their centroid fell within city limits. This standard approach ensures:
+
+- Consistent treatment of all residential areas
+- Minimal edge effects in spatial analysis
+- Alignment with Census Bureau methodology
+
+</div>
+
+---
+
+## Next Steps
+
+Continue to [Analysis](analysis.qmd) to see detailed spatial analysis results.
