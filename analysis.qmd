@@ -314,47 +314,7 @@ Focal Statistics smoothed VIIRS radiance using circular neighborhood. This revea
 
 ### 62 Underserved Neighborhoods Identified
 
-```{python}
-#| echo: false
-# Load complaint gap areas
-complaint_gap = gpd.read_file('geojson/complaintgap/complaint_gap_areas.geojson')
-philly_boundary = gpd.read_file('geojson/phillyarea/phillyarea.geojson')
 
-m6 = folium.Map(
-    location=[39.9526, -75.1652],
-    zoom_start=11,
-    tiles='CartoDB dark_matter'
-)
-
-# Add Philadelphia boundary
-folium.GeoJson(
-    philly_boundary.to_json(),
-    style_function=lambda x: {
-        'fillColor': 'transparent',
-        'color': '#95a5a6',
-        'weight': 2,
-        'fillOpacity': 0
-    },
-    name='Philadelphia Boundary'
-).add_to(m6)
-
-# Add complaint gap areas in red
-folium.GeoJson(
-    complaint_gap.to_json(),
-    style_function=lambda x: {
-        'fillColor': '#FF6B6B',
-        'color': '#FF6B6B',
-        'weight': 2,
-        'fillOpacity': 0.7
-    },
-    popup=folium.GeoJsonPopup(fields=['GEOID', 'median_inc', 'viirs_mean', 'streetli_5'],
-                                aliases=['Block Group', 'Median Income', 'VIIRS Brightness', 'Complaints/km²']),
-    name='Complaint Gap Areas'
-).add_to(m6)
-
-folium.LayerControl().add_to(m6)
-m6
-```
 
 <div class="feature-grid">
 
@@ -405,32 +365,7 @@ m6
 
 ### 582 Block Groups Predicted to Continue Darkening
 
-```{python}
-#| echo: false
-# Load darkening trend areas
-darkening = gpd.read_file('geojson/darkinging_trend_areas/darkening_trend_areas.geojson')
 
-m7 = folium.Map(
-    location=[39.9526, -75.1652],
-    zoom_start=11,
-    tiles='CartoDB dark_matter'
-)
-
-# Add darkening areas
-folium.GeoJson(
-    darkening.to_json(),
-    style_function=lambda x: {
-        'fillColor': '#8B4545',
-        'color': '#8B4545',
-        'weight': 1,
-        'fillOpacity': 0.6
-    },
-    name='Predicted Darkening Areas'
-).add_to(m7)
-
-folium.LayerControl().add_to(m7)
-m7
-```
 
 <div class="feature-grid">
 
@@ -446,7 +381,7 @@ m7
 </div>
 
 <div class="stat-card stat-card-blue">
-<span class="stat-number">R² = 0.997</span>
+<span class="stat-number">R² = 0.612</span>
 <span class="stat-label">Model Performance</span>
 <p style="margin-top: 1rem;">Random Forest Regressor</p>
 </div>
@@ -467,7 +402,7 @@ m7
 - 311 complaint density
 - Income & population
 
-**Validation:** Cross-validation R² = 0.997
+**Validation:** Cross-validation R² = 0.612
 
 </div>
 
@@ -488,40 +423,7 @@ Streetlights date to the 1970s. Our 2022-2024 data captures the critical transit
 
 ### Network-Based Routing with Risk Weighting
 
-```{python}
-#| echo: false
-# Load safe paths and route locations
-safe_paths = gpd.read_file('geojson/safepath/safepath.geojson')
-route_locations = gpd.read_file('geojson/routelocation/route_location.geojson')
 
-m8 = folium.Map(
-    location=[39.9526, -75.1652],
-    zoom_start=12,
-    tiles='CartoDB dark_matter'
-)
-
-# Add route locations (origins/destinations)
-for idx, row in route_locations.iterrows():
-    folium.Marker(
-        location=[row.geometry.y, row.geometry.x],
-        popup=row['location_name'] if 'location_name' in row else f"Location {idx}",
-        icon=folium.Icon(color='green', icon='info-sign')
-    ).add_to(m8)
-
-# Add safe paths
-folium.GeoJson(
-    safe_paths.to_json(),
-    style_function=lambda x: {
-        'color': '#2ECC71',
-        'weight': 3,
-        'opacity': 0.8
-    },
-    name='Safer Routes'
-).add_to(m8)
-
-folium.LayerControl().add_to(m8)
-m8
-```
 
 ### Route Analysis Results
 
