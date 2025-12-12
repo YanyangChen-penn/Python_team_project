@@ -6,7 +6,7 @@ project:
 
 website:
   title: "UNEQUAL NIGHTS"
-  site-url: "https://yourusername.github.io/unequal-nights"
+  site-url: "https://yanyangchen-penn.github.io/Python_team_project"
   description: "Philadelphia Lighting Equity Analysis - Shining Light on Infrastructure Inequality"
   
   navbar:
@@ -39,7 +39,7 @@ website:
         href: policy.qmd
       
       - icon: github
-        href: https://github.com/yourusername/unequal-nights
+        href: https://github.com/YanyangChen-penn/Python_team_project
         aria-label: GitHub
 
   page-footer:
@@ -74,11 +74,9 @@ format:
           <meta name="author" content="Zicheng Xiang, Zhe Fang, Yanyang Chen">
           <meta name="theme-color" content="#FFA500">
 
-jupyter: geoai
-
 execute:
   freeze: auto
   cache: false
   warning: false
   message: false
-  enabled: true
+  enabled: false

@@ -114,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a class="nav-link" href="policy.html">Policy</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="https://github.com/YanyangChen-penn/Python_team_project" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path> </svg> </a>
+<a class="nav-link" href="https://github.com" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path> </svg> </a>
 </li>
 </ul>
 </nav>
@@ -124,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="feature-grid">
 <div class="content-box" style="border-left-color: var(--gold);">
 <h3 class="anchored">
- VIIRS Satellite Data
+🛰️ VIIRS Satellite Data
 </h3>
 <p>
 <strong>Source:</strong> NASA Black Marble (VNP46A2)
@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="content-box" style="border-left-color: var(--blue);">
 <h3 class="anchored">
- 311 Service Requests
+📞 311 Service Requests
 </h3>
 <p>
 <strong>Source:</strong> OpenDataPhilly
@@ -155,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="content-box" style="border-left-color: var(--red);">
 <h3 class="anchored">
- Crime Data
+🚨 Crime Data
 </h3>
 <p>
 <strong>Source:</strong> Philadelphia Police Department
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="content-box" style="border-left-color: var(--green);">
 <h3 class="anchored">
- Census Demographics
+👥 Census Demographics
 </h3>
 <p>
 <strong>Source:</strong> ACS 5-Year Estimates
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="python-libraries" class="content-box" style="border-left-color: var(--blue);">
 <h3 class="anchored">Python Libraries</h3>
 <p><strong>Data Processing:</strong> - pandas, geopandas</p>
-<p><strong>Machine Learning:</strong> - scikit-learn (Random Forest, GridSearchCV)</p>
+<p><strong>Statistical Analysis:</strong> - scipy.stats (linregress for trend analysis)</p>
 <p><strong>Network Analysis:</strong> - NetworkX, OSMnx</p>
 <p><strong>Visualization:</strong> - matplotlib, seaborn, plotly</p>
 </section>
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     F --&gt; G[Spatial Analysis&lt;br/&gt;Zonal + Focal]
     
     G --&gt; H[Complaint Gap&lt;br/&gt;62 Areas]
-    G --&gt; I[Predictive Model&lt;br/&gt;Random Forest]
+    G --&gt; I[Trend Analysis&lt;br/&gt;Linear Regression]
     G --&gt; J[Safe Paths&lt;br/&gt;Network Analysis]
     
     H --&gt; K[Policy&lt;br/&gt;Recommendations]
@@ -291,10 +291,10 @@ Below-median household income areas
 <div class="content-box">
 <p><strong>Raster Calculator Formula:</strong></p>
 <pre><code>CostSurf_Risk = 
-    0.30 * Darkness +
-    0.30 * Crime +
-    0.20 * Low311 +
-    0.20 * LowIncome</code></pre>
+    0.30 × Darkness +
+    0.30 × Crime +
+    0.20 × Low311 +
+    0.20 × LowIncome</code></pre>
 <p><strong>Rationale for Weights:</strong> - <strong>30% Darkness</strong>: Primary objective measure of lighting - <strong>30% Crime</strong>: Direct safety impact - <strong>20% Low 311</strong>: Indicates underreporting - <strong>20% Low Income</strong>: Vulnerability indicator</p>
 <p>Higher values indicate higher-risk areas requiring priority attention.</p>
 </div>
@@ -370,27 +370,69 @@ Critical Finding
 </blockquote>
 </div>
 <hr>
-<h2 id="phase-4-predictive-modeling" class="anchored">Phase 4: Predictive Modeling</h2>
-<h3 id="random-forest-regressor" class="anchored">Random Forest Regressor</h3>
+<h2 id="phase-4-temporal-trend-analysis" class="anchored">Phase 4: Temporal Trend Analysis</h2>
+<h3 id="linear-regression-slope-analysis" class="anchored">Linear Regression Slope Analysis</h3>
 <div class="content-box content-box-blue">
-<p><strong>Model Configuration:</strong> - Algorithm: Random Forest Regressor (scikit-learn) - Hyperparameter Tuning: GridSearchCV - Performance: R² = 0.997</p>
-<p><strong>Top Predictive Features:</strong> 1. Historical brightness trend 2. Current VIIRS level<br>
-3. 311 complaint density 4. Income &amp; population</p>
-<p><strong>Output:</strong> <code>predicted_darkening_areas</code> layer with 582 block groups</p>
+<p><strong>Method:</strong> For each block group, calculate the linear regression slope of VIIRS brightness values over the 2022-2024 observation period</p>
+<p><strong>Tool:</strong> scipy.stats.linregress</p>
+<p><strong>Output:</strong> <code>brightness_trend</code> (slope) for each of 1,283 block groups</p>
+<p><strong>Classification:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Slope Threshold</th>
+<th>Count</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Darkening Fast</td>
+<td>slope &lt; -2</td>
+<td>112</td>
+<td>8.7%</td>
+</tr>
+<tr class="even">
+<td>Darkening</td>
+<td>-2 ≤ slope &lt; 0</td>
+<td>287</td>
+<td>22.4%</td>
+</tr>
+<tr class="odd">
+<td>Stable</td>
+<td>0 ≤ slope &lt; 2</td>
+<td>636</td>
+<td>49.6%</td>
+</tr>
+<tr class="even">
+<td>Brightening</td>
+<td>2 ≤ slope &lt; 5</td>
+<td>231</td>
+<td>18.0%</td>
+</tr>
+<tr class="odd">
+<td>Brightening Fast</td>
+<td>slope ≥ 5</td>
+<td>17</td>
+<td>1.3%</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="stat-card stat-card-orange" style="max-width: 500px; margin: 2rem auto;">
-<span class="stat-number">80%</span> <span class="stat-label">of Philadelphia Currently Darkening</span>
+<span class="stat-number">31.1%</span> <span class="stat-label">of Philadelphia Showing Darkening Trend</span>
 <p style="margin-top: 1rem; color: var(--text-muted);">
-Block groups showed decreasing light levels from 2022-2024
+399 block groups experiencing declining brightness (2022-2024)
 </p>
 </div>
 <div>
 <blockquote>
 <p><strong>None</strong></p>
 <div class="callout-title">
-Urgent Finding
+Key Finding
 </div>
-<p><strong>Philadelphia lighting is declining citywide.</strong> Priority intervention needed before infrastructure failure.</p>
+<p><strong>399 Philadelphia block groups (31.1%) show declining lighting levels.</strong> The 112 “Darkening Fast” areas represent highest priority for intervention.</p>
 </blockquote>
 </div>
 <hr>
@@ -413,7 +455,7 @@ ArcGIS Approach
 </div>
 <div class="content-box" style="border-left-color: var(--green);">
 <h4 class="anchored">
-Python Approach 
+Python Approach ✅
 </h4>
 <p>
 <strong>Tools:</strong> OSMnx + NetworkX
@@ -430,7 +472,7 @@ Python Approach
 <div class="content-box content-box-green">
 <p><strong>52 routes analyzed</strong> between key Philadelphia locations: - City Hall - Temple University - 30th Street Station - University City - Chinatown - Major transit hubs</p>
 <p><strong>Trade-off:</strong> - <strong>+1-3% Distance</strong> increase - <strong>Up to 20% Safer</strong> routes</p>
-<p>ðŸ® <strong>Chinatown route shows greatest risk reduction</strong></p>
+<p>🐮 <strong>Chinatown route shows greatest risk reduction</strong></p>
 </div>
 <hr>
 <h2 id="data-quality-limitations" class="anchored">Data Quality &amp; Limitations</h2>
@@ -445,6 +487,7 @@ Acknowledged Limitations
 <li><strong>311 data reflects reporting behavior</strong>, not actual conditions</li>
 <li><strong>Cross-sectional analysis</strong>; causation not established</li>
 <li><strong>Temporal scope:</strong> 2022-2024 captures pre-LED upgrade period</li>
+<li><strong>Trend analysis:</strong> Describes observed patterns, not predictions</li>
 </ul>
 </blockquote>
 </div>
@@ -473,11 +516,11 @@ Acknowledged Limitations
 <li>Focal Statistics for smoothing</li>
 <li>Python for Complaint Gap identification</li>
 </ul></li>
-<li><strong>Predictive Modeling</strong> (Python scikit-learn)
+<li><strong>Trend Analysis</strong> (Python scipy.stats)
 <ul>
-<li>Train Random Forest</li>
-<li>Generate predictions</li>
-<li>Validate with cross-validation</li>
+<li>Calculate brightness slopes via linear regression</li>
+<li>Classify areas by trend category</li>
+<li>Identify 399 darkening areas</li>
 </ul></li>
 <li><strong>Network Analysis</strong> (Python OSMnx)
 <ul>
@@ -568,7 +611,7 @@ Acknowledged Limitations
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/yourusername\.github\.io\/unequal-nights");
+        var filterRegex = new RegExp("https:\/\/yanyangchen-penn\.github\.io\/Python_team_project");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

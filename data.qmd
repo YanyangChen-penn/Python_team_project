@@ -34,7 +34,7 @@ execute:
 <div class="feature-grid">
 
 <div class="content-box" style="border-left-color: var(--gold);">
-<h3>ðŸ›°ï¸ VIIRS Satellite Data</h3>
+<h3>🛰️ VIIRS Satellite Data</h3>
 <p><strong>Source:</strong> NASA Black Marble (VNP46A2)</p>
 <p><strong>Period:</strong> 2022-2024</p>
 <p><strong>Purpose:</strong> Nighttime light radiance measurement</p>
@@ -42,14 +42,14 @@ execute:
 </div>
 
 <div class="content-box" style="border-left-color: var(--blue);">
-<h3>ðŸ“ž 311 Service Requests</h3>
+<h3>📞 311 Service Requests</h3>
 <p><strong>Source:</strong> OpenDataPhilly</p>
 <p><strong>Type:</strong> Street light outage complaints</p>
 <p><strong>Purpose:</strong> Complaint patterns and response times</p>
 </div>
 
 <div class="content-box" style="border-left-color: var(--red);">
-<h3>ðŸš¨ Crime Data</h3>
+<h3>🚨 Crime Data</h3>
 <p><strong>Source:</strong> Philadelphia Police Department</p>
 <p><strong>Type:</strong> Incident locations (Part 1 & 2)</p>
 <p><strong>Purpose:</strong> Safety risk analysis</p>
@@ -57,7 +57,7 @@ execute:
 </div>
 
 <div class="content-box" style="border-left-color: var(--green);">
-<h3>ðŸ‘¥ Census Demographics</h3>
+<h3>👥 Census Demographics</h3>
 <p><strong>Source:</strong> ACS 5-Year Estimates</p>
 <p><strong>Variables:</strong> Population, income, housing data</p>
 <p><strong>Purpose:</strong> Socioeconomic equity analysis</p>
@@ -99,8 +99,8 @@ execute:
 **Data Processing:**
 - pandas, geopandas
 
-**Machine Learning:**
-- scikit-learn (Random Forest, GridSearchCV)
+**Statistical Analysis:**
+- scipy.stats (linregress for trend analysis)
 
 **Network Analysis:**
 - NetworkX, OSMnx
@@ -129,7 +129,7 @@ graph TD
     F --> G[Spatial Analysis<br/>Zonal + Focal]
     
     G --> H[Complaint Gap<br/>62 Areas]
-    G --> I[Predictive Model<br/>Random Forest]
+    G --> I[Trend Analysis<br/>Linear Regression]
     G --> J[Safe Paths<br/>Network Analysis]
     
     H --> K[Policy<br/>Recommendations]
@@ -191,10 +191,10 @@ Each factor was standardized to a common 1-5 scale for comparison:
 
 ```
 CostSurf_Risk = 
-    0.30 Ã— Darkness +
-    0.30 Ã— Crime +
-    0.20 Ã— Low311 +
-    0.20 Ã— LowIncome
+    0.30 × Darkness +
+    0.30 × Crime +
+    0.20 × Low311 +
+    0.20 × LowIncome
 ```
 
 **Rationale for Weights:**
@@ -270,7 +270,7 @@ complaint_gap = gdf[
 |--------|-----------|---------------|------------|
 | **Avg Income** | $42,800 | $67,200 | -36% |
 | **Avg VIIRS** | 0.31 | 0.89 | -65% |
-| **311 Complaints/kmÂ²** | 2.1 | 8.7 | -76% |
+| **311 Complaints/km²** | 2.1 | 8.7 | -76% |
 
 </div>
 
@@ -281,36 +281,39 @@ Gap areas are **38% lower income**, **65% darker**, and file **76% fewer complai
 
 ---
 
-## Phase 4: Predictive Modeling
+## Phase 4: Temporal Trend Analysis
 
-### Random Forest Regressor
+### Linear Regression Slope Analysis
 
 <div class="content-box content-box-blue">
 
-**Model Configuration:**
-- Algorithm: Random Forest Regressor (scikit-learn)
-- Hyperparameter Tuning: GridSearchCV
-- Performance: RÂ² = 0.997
+**Method:** For each block group, calculate the linear regression slope of VIIRS brightness values over the 2022-2024 observation period
 
-**Top Predictive Features:**
-1. Historical brightness trend
-2. Current VIIRS level  
-3. 311 complaint density
-4. Income & population
+**Tool:** scipy.stats.linregress
 
-**Output:** `predicted_darkening_areas` layer with 582 block groups
+**Output:** `brightness_trend` (slope) for each of 1,283 block groups
+
+**Classification:**
+
+| Category | Slope Threshold | Count | % |
+|----------|-----------------|-------|---|
+| Darkening Fast | slope < -2 | 112 | 8.7% |
+| Darkening | -2 ≤ slope < 0 | 287 | 22.4% |
+| Stable | 0 ≤ slope < 2 | 636 | 49.6% |
+| Brightening | 2 ≤ slope < 5 | 231 | 18.0% |
+| Brightening Fast | slope ≥ 5 | 17 | 1.3% |
 
 </div>
 
 <div class="stat-card stat-card-orange" style="max-width: 500px; margin: 2rem auto;">
-<span class="stat-number">80%</span>
-<span class="stat-label">of Philadelphia Currently Darkening</span>
-<p style="margin-top: 1rem; color: var(--text-muted);">Block groups showed decreasing light levels from 2022-2024</p>
+<span class="stat-number">31.1%</span>
+<span class="stat-label">of Philadelphia Showing Darkening Trend</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">399 block groups experiencing declining brightness (2022-2024)</p>
 </div>
 
 <div class="callout callout-danger">
-<div class="callout-title">Urgent Finding</div>
-**Philadelphia lighting is declining citywide.** Priority intervention needed before infrastructure failure.
+<div class="callout-title">Key Finding</div>
+**399 Philadelphia block groups (31.1%) show declining lighting levels.** The 112 "Darkening Fast" areas represent highest priority for intervention.
 </div>
 
 ---
@@ -329,7 +332,7 @@ Gap areas are **38% lower income**, **65% darker**, and file **76% fewer complai
 </div>
 
 <div class="content-box" style="border-left-color: var(--green);">
-<h4>Python Approach âœ…</h4>
+<h4>Python Approach ✅</h4>
 <p><strong>Tools:</strong> OSMnx + NetworkX</p>
 <p><strong>Method:</strong> Street network routing with risk-weighted edges</p>
 <p><strong>Routes:</strong> 52 origin-destination pairs</p>
@@ -353,7 +356,7 @@ Gap areas are **38% lower income**, **65% darker**, and file **76% fewer complai
 - **+1-3% Distance** increase
 - **Up to 20% Safer** routes
 
-ðŸ® **Chinatown route shows greatest risk reduction**
+🐮 **Chinatown route shows greatest risk reduction**
 
 </div>
 
@@ -368,6 +371,7 @@ Gap areas are **38% lower income**, **65% darker**, and file **76% fewer complai
 - **311 data reflects reporting behavior**, not actual conditions
 - **Cross-sectional analysis**; causation not established
 - **Temporal scope:** 2022-2024 captures pre-LED upgrade period
+- **Trend analysis:** Describes observed patterns, not predictions
 
 </div>
 
@@ -394,10 +398,10 @@ Gap areas are **38% lower income**, **65% darker**, and file **76% fewer complai
    - Focal Statistics for smoothing
    - Python for Complaint Gap identification
 
-5. **Predictive Modeling** (Python scikit-learn)
-   - Train Random Forest
-   - Generate predictions
-   - Validate with cross-validation
+5. **Trend Analysis** (Python scipy.stats)
+   - Calculate brightness slopes via linear regression
+   - Classify areas by trend category
+   - Identify 399 darkening areas
 
 6. **Network Analysis** (Python OSMnx)
    - Build street network graph

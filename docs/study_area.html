@@ -64,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <a class="nav-link" href="data.html">Data</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="study_area.html">Study Area</a>
+<a class="nav-link active" href="study_area.html">Study Area</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" href="analysis.html">Analysis</a>
@@ -83,24 +83,11 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 <h2 id="geographic-scope" class="anchored">Geographic Scope</h2>
 <h3 id="philadelphia-residential-areas" class="anchored">Philadelphia Residential Areas</h3>
-
-<div style="margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-<iframe 
-    src="https://upenn.maps.arcgis.com/apps/instant/basic/index.html?appid=b27abcb2bc914c339b47a5a6fc878619"
-    width="100%" 
-    height="600px" 
-    frameborder="0"
-    style="border: none;">
-</iframe>
+<div class="content-box">
+<p>The study area encompasses <strong>Philadelphia County</strong>, focusing on residential neighborhoods where street lighting equity is most relevant to daily life.</p>
+<p><strong>Coordinate System:</strong> NAD 1983 StatePlane Pennsylvania South (EPSG:2272)</p>
+<p><strong>Extent:</strong> City of Philadelphia boundary</p>
 </div>
-
-<p style="margin-top: 15px; font-size: 14px; color: #888;">
-<strong>Map Source:</strong> UPenn GIS - Philadelphia Residential Areas | 
-<a href="https://upenn.maps.arcgis.com/apps/instant/basic/index.html?appid=b27abcb2bc914c339b47a5a6fc878619" target="_blank" style="color: #5e87eb;">
-  🔗 打开完整地图
-</a>
-</p>
-
 <hr>
 <h2 id="study-area-statistics" class="anchored">Study Area Statistics</h2>
 <div class="feature-grid">
@@ -266,7 +253,7 @@ Water/Special Area
 <h2 id="rationale-for-exclusions" class="anchored">Rationale for Exclusions</h2>
 <div>
 <blockquote>
-
+<p><strong>None</strong></p>
 <div class="callout-title">
 Why These Areas Were Excluded
 </div>
@@ -320,13 +307,13 @@ Block group resolution
 <p><strong>Geographic Unit:</strong> U.S. Census Block Groups</p>
 <p><strong>Why Block Groups?</strong> - Fine enough resolution to detect neighborhood-level inequality - Coarse enough to protect individual privacy - Aligns with Census demographic data - Standard unit for urban planning analysis</p>
 <p><strong>Population Range:</strong> Typically 600-3,000 residents per block group</p>
-<p><strong>Area Range:</strong> 0.1-2.0 kmÂ² per block group in Philadelphia</p>
+<p><strong>Area Range:</strong> 0.1-2.0 km² per block group in Philadelphia</p>
 </section>
 <hr>
 <h2 id="boundary-considerations" class="anchored">Boundary Considerations</h2>
 <div>
 <blockquote>
-
+<p><strong>None</strong></p>
 <div class="callout-title">
 Edge Effects
 </div>
@@ -340,7 +327,7 @@ Edge Effects
 </div>
 <hr>
 <h2 id="next-steps" class="anchored">Next Steps</h2>
-<p>Continue to <a href="./analysis.html">Analysis</a> to see detailed spatial analysis results.</p>
+<p>Continue to <a href="analysis.html">Analysis</a> to see detailed spatial analysis results.</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
@@ -420,7 +407,7 @@ Edge Effects
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/yourusername\.github\.io\/unequal-nights");
+        var filterRegex = new RegExp("https:\/\/yanyangchen-penn\.github\.io\/Python_team_project");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

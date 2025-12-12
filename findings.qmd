@@ -38,21 +38,21 @@ execute:
 </div>
 
 <div class="stat-card stat-card-blue">
-<span class="stat-number">582</span>
-<span class="stat-label">Predicted to Darken</span>
-<p style="margin-top: 1rem; color: var(--text-muted);">Block groups showing decline</p>
+<span class="stat-number">399</span>
+<span class="stat-label">Showing Darkening Trend</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">31.1% of block groups declining</p>
 </div>
 
 <div class="stat-card stat-card-orange">
-<span class="stat-number">80%</span>
-<span class="stat-label">Currently Declining</span>
-<p style="margin-top: 1rem; color: var(--text-muted);">Of all Philadelphia areas</p>
+<span class="stat-number">112</span>
+<span class="stat-label">Darkening Fast</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Highest priority areas (8.7%)</p>
 </div>
 
 <div class="stat-card stat-card-green">
-<span class="stat-number">RÂ² = 0.997</span>
-<span class="stat-label">Model Accuracy</span>
-<p style="margin-top: 1rem; color: var(--text-muted);">Random Forest performance</p>
+<span class="stat-number">287</span>
+<span class="stat-label">Darkening</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Moderate decline (22.4%)</p>
 </div>
 
 </div>
@@ -79,9 +79,9 @@ execute:
 
 | Metric | Gap Areas | Non-Gap Areas | Difference |
 |--------|-----------|---------------|------------|
-| **Average Income** | $42,800 | $67,200 | **-36%** â¬‡ï¸ |
-| **Average VIIRS** | 0.31 | 0.89 | **-65%** â¬‡ï¸ |
-| **311 Complaints/kmÂ²** | 2.1 | 8.7 | **-76%** â¬‡ï¸ |
+| **Average Income** | $42,800 | $67,200 | **-36%** ⬇️ |
+| **Average VIIRS** | 0.31 | 0.89 | **-65%** ⬇️ |
+| **311 Complaints/km²** | 2.1 | 8.7 | **-76%** ⬇️ |
 
 </div>
 
@@ -100,11 +100,11 @@ Traditional maintenance waits for complaints. But barriers to reporting (languag
 
 <div class="content-box content-box-orange">
 
-### Philadelphia Lighting Is Declining Citywide
+### Philadelphia Lighting Is Declining in Many Areas
 
-**Model Prediction:** 582 block groups will experience continued brightness decline
+**Trend Analysis:** 399 block groups (31.1%) show declining brightness based on 2022-2024 VIIRS data
 
-**Current Status:** 80% of Philadelphia block groups showed decreasing light levels from 2022-2024
+**Fastest Decline:** 112 areas classified as "Darkening Fast" (8.7%) — highest priority for intervention
 
 **Historical Context:** Streetlights date to the 1970s; our data captures peak infrastructure decline before the $91M LED upgrade
 
@@ -115,7 +115,7 @@ Traditional maintenance waits for complaints. But barriers to reporting (languag
 
 **Priority intervention needed before infrastructure failure.** 
 
-The predictive model (RÂ²=0.997) provides early warning system to deploy resources to 582 predicted darkening areas BEFORE they reach crisis point.
+The temporal trend analysis provides an early warning system to deploy resources to 399 darkening areas BEFORE they reach crisis point. The 112 "Darkening Fast" zones should be prioritized first.
 
 </div>
 
@@ -195,6 +195,7 @@ The predictive model (RÂ²=0.997) provides early warning system to deploy resou
 - Reclassification to 1-5 scale involves judgment in breakpoint selection
 - Weighting scheme (30-30-20-20) based on literature but could be adjusted
 - Block group analysis may mask within-neighborhood variation
+- Trend analysis describes observed historical patterns, not future predictions
 
 ### Generalizability
 
@@ -210,22 +211,22 @@ The predictive model (RÂ²=0.997) provides early warning system to deploy resou
 <div class="feature-grid">
 
 <div class="feature-item" style="border-top-color: var(--blue);">
-<h4>ðŸ“¡ Real-Time Monitoring</h4>
+<h4>📡 Real-Time Monitoring</h4>
 <p>Integrate real-time 311 monitoring with monthly VIIRS updates for dynamic tracking</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--green);">
-<h4>ðŸ” Field Validation</h4>
+<h4>🔍 Field Validation</h4>
 <p>Ground-truth Complaint Gap areas with field surveys and resident interviews</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--orange);">
-<h4>ðŸŒŽ Multi-City Expansion</h4>
+<h4>🌎 Multi-City Expansion</h4>
 <p>Apply methodology to other cities (Chicago, LA, NYC) for comparative analysis</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--red);">
-<h4>ðŸ”® LED Impact Assessment</h4>
+<h4>🔮 LED Impact Assessment</h4>
 <p>Continue monitoring post-LED installation to evaluate equity outcomes</p>
 </div>
 
@@ -243,7 +244,7 @@ The predictive model (RÂ²=0.997) provides early warning system to deploy resou
 This analysis reveals systemic lighting inequality in Philadelphia.
 </h3>
 
-**Communities that need light the most are least likely to report problems** â€” creating a gap that perpetuates inequity.
+**Communities that need light the most are least likely to report problems** — creating a gap that perpetuates inequity.
 
 </div>
 
@@ -252,17 +253,17 @@ This analysis reveals systemic lighting inequality in Philadelphia.
 <div class="feature-grid">
 
 <div class="feature-item" style="border-top-color: var(--red);">
-<h4>ðŸŒ‘ Objective Darkness</h4>
+<h4>🌑 Objective Darkness</h4>
 <p>VIIRS data shows peripheral neighborhoods 65% darker than downtown</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--blue);">
-<h4>ðŸ“‰ Reporting Gap</h4>
+<h4>📉 Reporting Gap</h4>
 <p>Darkest areas file 76% fewer complaints due to systemic barriers</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--orange);">
-<h4>âš–ï¸ Compounding Vulnerability</h4>
+<h4>⚖️ Compounding Vulnerability</h4>
 <p>Low-income areas face both darkness AND lack voice to demand fixes</p>
 </div>
 
@@ -279,12 +280,12 @@ This analysis reveals systemic lighting inequality in Philadelphia.
 
 **Data should not only reveal darkness, but it should also help cities decide where to shine next.**
 
-This project demonstrates how **spatial data science can illuminate pathways to justice**â€”one streetlight at a time.
+This project demonstrates how **spatial data science can illuminate pathways to justice**—one streetlight at a time.
 
 By transforming satellite data into actionable insights, we:
 
 1. **Expose** systematic infrastructure inequality invisible to complaint systems
-2. **Predict** which neighborhoods will darken next
+2. **Identify** which neighborhoods are experiencing declining lighting
 3. **Propose** evidence-based interventions for equitable maintenance
 4. **Provide** tools for ongoing monitoring and accountability
 
@@ -326,9 +327,9 @@ Philadelphia's streetlights date back to the **1970s**. The 2022-2024 period cap
    - Focus maintenance on 62 Complaint Gap areas first
    - Address systematic underservice, not just reported problems
 
-3. **PREDICTIVE MAINTENANCE**
-   - Deploy resources to 582 predicted darkening areas
-   - Prevent failures rather than react to them
+3. **PROACTIVE MAINTENANCE**
+   - Deploy resources to 399 darkening trend areas
+   - Prioritize 112 "Darkening Fast" zones for immediate action
 
 4. **EQUITY DASHBOARD**
    - Public monitoring dashboard tracking lighting equity
@@ -343,7 +344,7 @@ Philadelphia's streetlights date back to the **1970s**. The 2022-2024 period cap
 <div style="background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%); padding: 3rem; border-radius: 12px; border-left: 4px solid var(--gold); margin: 2rem 0;">
 
 <p style="font-size: 1.3rem; line-height: 1.8; color: var(--text-light); font-style: italic;">
-Every streetlight outage represents more than a technical failureâ€”it reflects a gap in the urban social contract.
+Every streetlight outage represents more than a technical failure—it reflects a gap in the urban social contract.
 </p>
 
 <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-light); margin-top: 1.5rem;">
@@ -355,7 +356,7 @@ Low-income communities already face higher crime rates, limited transit options,
 </p>
 
 <p style="font-size: 1.2rem; line-height: 1.8; color: var(--gold); margin-top: 2rem; font-weight: 600;">
-Each light restored is not just an infrastructure fixâ€”it represents restored public trust.
+Each light restored is not just an infrastructure fix—it represents restored public trust.
 </p>
 
 </div>

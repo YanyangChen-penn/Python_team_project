@@ -64,21 +64,21 @@ Philadelphia's nights are **unevenly illuminated**. Downtown shines brightly, wh
 </div>
 
 <div class="stat-card stat-card-blue">
-<span class="stat-number">582</span>
-<span class="stat-label">Areas Predicted to Darken</span>
-<p style="margin-top: 1rem; color: var(--text-muted);">Priority intervention zones</p>
+<span class="stat-number">399</span>
+<span class="stat-label">Areas Showing Darkening Trend</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Based on 2022-2024 satellite data</p>
 </div>
 
 <div class="stat-card stat-card-orange">
-<span class="stat-number">80%</span>
-<span class="stat-label">Currently Darkening</span>
+<span class="stat-number">31.1%</span>
+<span class="stat-label">Experiencing Decline</span>
 <p style="margin-top: 1rem; color: var(--text-muted);">Of Philadelphia block groups</p>
 </div>
 
 <div class="stat-card stat-card-green">
-<span class="stat-number">0.997</span>
-<span class="stat-label">Model R²</span>
-<p style="margin-top: 1rem; color: var(--text-muted);">Random Forest accuracy</p>
+<span class="stat-number">112</span>
+<span class="stat-label">Darkening Fast Areas</span>
+<p style="margin-top: 1rem; color: var(--text-muted);">Highest priority zones</p>
 </div>
 
 </div>
@@ -201,7 +201,7 @@ This study uses **VIIRS satellite data** to objectively identify dark areas, byp
 
 <div class="feature-item">
 <h4>🐍 Python</h4>
-<p>pandas, geopandas, scikit-learn (Random Forest), NetworkX, OSMnx</p>
+<p>pandas, geopandas, scipy.stats, NetworkX, OSMnx</p>
 </div>
 
 </div>
@@ -228,9 +228,9 @@ This study uses **VIIRS satellite data** to objectively identify dark areas, byp
 
 **Philadelphia lighting is declining citywide.**
 
-Model predicts 582 block groups will experience continued brightness decline
+Trend analysis shows 399 block groups (31.1%) are experiencing declining brightness based on 2022-2024 VIIRS satellite observations
 
-Current status: 80% of Philadelphia block groups showed decreasing light levels from 2022-2024
+Of these, 112 areas are classified as "Darkening Fast" — the highest priority for intervention
 
 **Priority intervention needed before infrastructure failure.**
 
@@ -298,8 +298,8 @@ Current status: 80% of Philadelphia block groups showed decreasing light levels 
 </div>
 
 <div class="content-box" style="border-left-color: var(--orange);">
-<h3 style="color: var(--orange);">4. Predictive Maintenance</h3>
-<p>Deploy resources to <strong>582 predicted darkening areas</strong> before they fail</p>
+<h3 style="color: var(--orange);">4. Proactive Maintenance</h3>
+<p>Deploy resources to <strong>399 darkening trend areas</strong> before they fail</p>
 </div>
 
 </div>

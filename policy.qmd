@@ -36,16 +36,16 @@ execute:
 <div style="flex: 1; min-width: 250px; background-color: #34495e; padding: 2rem; border-radius: 8px; border-top: 3px solid var(--red);">
 <h3 style="color: var(--red); font-size: 1.8rem;">REACTIVE</h3>
 <p style="font-size: 1.2rem; color: var(--text-light);">Wait for complaints</p>
-<p style="color: var(--text-muted); margin-top: 1rem;">â†“</p>
+<p style="color: var(--text-muted); margin-top: 1rem;">↓</p>
 <p style="color: var(--text-muted);">Traditional 311 System</p>
 </div>
 
-<div style="font-size: 3rem; color: var(--gold);">â†’</div>
+<div style="font-size: 3rem; color: var(--gold);">→</div>
 
 <div style="flex: 1; min-width: 250px; background-color: #2c5530; padding: 2rem; border-radius: 8px; border-top: 3px solid var(--green);">
 <h3 style="color: var(--green); font-size: 1.8rem;">PROACTIVE</h3>
 <p style="font-size: 1.2rem; color: var(--text-light);">Satellite-driven</p>
-<p style="color: var(--text-muted); margin-top: 1rem;">â†“</p>
+<p style="color: var(--text-muted); margin-top: 1rem;">↓</p>
 <p style="color: var(--text-muted);">Data-Informed Equity</p>
 </div>
 
@@ -93,7 +93,7 @@ Don't rely solely on complaints. Satellite data reveals what the 311 system miss
 **Expected Impact:**
 - Identify problems before residents complain
 - Catch 65% more lighting issues
-- Enable predictive maintenance scheduling
+- Enable proactive maintenance scheduling
 
 </div>
 
@@ -119,16 +119,17 @@ Transparency creates accountability. Public monitoring ensures equitable service
 </div>
 
 <div class="content-box" style="border-left-color: var(--orange); min-height: 300px;">
-<h3 style="color: var(--orange);">4. Predictive Maintenance</h3>
-<h4>Deploy Resources to 582 Predicted Areas</h4>
+<h3 style="color: var(--orange);">4. Proactive Maintenance</h3>
+<h4>Deploy Resources to 399 Darkening Areas</h4>
 
 **Implementation:**
-- Use Random Forest predictions to guide inspection schedules
-- Preventive maintenance in predicted darkening areas
-- Quarterly model updates with new VIIRS data
+- Use trend analysis to guide inspection schedules
+- Preventive maintenance in darkening areas
+- Prioritize 112 "Darkening Fast" zones first
+- Quarterly updates with new VIIRS data
 
 **Rationale:**
-Act before failure. 80% of Philadelphia already decliningâ€”intervene proactively.
+Act before failure. 31.1% of Philadelphia showing decline—intervene proactively.
 
 **Expected Impact:**
 - Reduce infrastructure failures by 50%
@@ -173,8 +174,8 @@ Act before failure. 80% of Philadelphia already decliningâ€”intervene proac
 - Integrate VIIRS, 311, maintenance data
 - Launch with community feedback sessions
 
-**Implement Predictive Maintenance**
-- Deploy Random Forest model in production
+**Implement Proactive Maintenance**
+- Deploy trend monitoring in production
 - Generate quarterly maintenance schedules
 - Monitor intervention effectiveness
 
@@ -247,26 +248,26 @@ Act before failure. 80% of Philadelphia already decliningâ€”intervene proac
 <div class="feature-grid">
 
 <div class="feature-item" style="border-top-color: var(--blue);">
-<h4>ðŸ›ï¸ City Agencies</h4>
+<h4>🏛️ City Agencies</h4>
 <p><strong>Philadelphia Streets Department:</strong> Maintenance implementation</p>
 <p><strong>Office of Innovation & Technology:</strong> Dashboard development</p>
 <p><strong>Police Department:</strong> Safety data integration</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--green);">
-<h4>ðŸ˜ï¸ Community Organizations</h4>
+<h4>🏘️ Community Organizations</h4>
 <p><strong>Neighborhood associations</strong> in 62 Gap areas</p>
 <p><strong>Advocacy groups:</strong> Public participation and feedback</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--orange);">
-<h4>ðŸŽ“ Academic Partners</h4>
+<h4>🎓 Academic Partners</h4>
 <p><strong>University of Pennsylvania:</strong> Ongoing monitoring and evaluation</p>
 <p><strong>Temple University:</strong> Community engagement research</p>
 </div>
 
 <div class="feature-item" style="border-top-color: var(--red);">
-<h4>ðŸ’° Funding Sources</h4>
+<h4>💰 Funding Sources</h4>
 <p><strong>Infrastructure Investment:</strong> Federal/state grants</p>
 <p><strong>Foundation Support:</strong> Equity-focused funding</p>
 </div>
@@ -283,12 +284,12 @@ Act before failure. 80% of Philadelphia already decliningâ€”intervene proac
 
 **Equity Metrics:**
 - Gap area VIIRS brightness increase (target: +30%)
-- 311 complaint rate convergence (target: Â±20% of city average)
+- 311 complaint rate convergence (target: ±20% of city average)
 - Income-lighting correlation reduction (target: -50%)
 
 **Operational Metrics:**
 - Repair response time in Gap areas (target: <48 hours)
-- Preventive interventions in predicted areas (target: 582 sites/year)
+- Proactive interventions in darkening areas (target: 399 sites/year)
 - Infrastructure failure rate (target: -50%)
 
 **Community Metrics:**
@@ -306,9 +307,9 @@ Act before failure. 80% of Philadelphia already decliningâ€”intervene proac
 
 ### The Urgent Case for Action
 
-**Model predicts 582 areas will darken. 80% of Philadelphia already declining. Act before failure.**
+**Trend analysis shows 399 areas darkening. 31.1% of Philadelphia experiencing decline. Act before failure.**
 
-Philadelphia's streetlights date to the 1970s. Our 2022-2024 data captures the **critical period before the $91M LED project**â€”documenting peak infrastructure decline.
+Philadelphia's streetlights date to the 1970s. Our 2022-2024 data captures the **critical period before the $91M LED project**—documenting peak infrastructure decline.
 
 **This research provides the roadmap to ensure the new LED system doesn't perpetuate old inequities.**
 
@@ -330,7 +331,7 @@ This methodology is **fully replicable** in other U.S. cities:
 - Census demographics (ACS 5-year)
 
 **Required Tools (all open-source):**
-- Python (pandas, geopandas, scikit-learn)
+- Python (pandas, geopandas, scipy.stats)
 - QGIS or ArcGIS
 - R/Quarto for reporting
 
@@ -351,7 +352,7 @@ Every Light Restored = Trust Restored
 </h2>
 
 <p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem;">
-This analysis reveals systemic lighting inequality in Philadelphia. Communities that need light the most are least likely to report problemsâ€”creating a gap that perpetuates inequity.
+This analysis reveals systemic lighting inequality in Philadelphia. Communities that need light the most are least likely to report problems—creating a gap that perpetuates inequity.
 </p>
 
 <p style="font-size: 1.5rem; font-weight: 600;">
@@ -400,7 +401,7 @@ Master of Urban Spatial Analytics (MUSA)
 </p>
 
 <p style="margin-top: 1.5rem; color: var(--text-light);">
-By transforming 311 maintenance data and satellite imagery into actionable insight, this project demonstrates how <strong>spatial data science can illuminate pathways to justice</strong>â€”one streetlight at a time.
+By transforming 311 maintenance data and satellite imagery into actionable insight, this project demonstrates how <strong>spatial data science can illuminate pathways to justice</strong>—one streetlight at a time.
 </p>
 
 </div>
